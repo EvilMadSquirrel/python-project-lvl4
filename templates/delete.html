@@ -3,10 +3,15 @@
 {% load bootstrap4 %}
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
-<form method="post">
+  <form method="post">
     {% csrf_token %}
     <h1 class="my-4">{{ title }}</h1>
-    <p>{% translate "Are you sure you want to delete" %} {{ object.first_name }} {{ object.last_name }}</p>
-    {% bootstrap_button button_text button_type="submit"  button_class="btn-danger" %}
-</form>
+    <p>{% translate "Are you sure you want to delete" %}
+      {% if object.first_name %}
+        {{ object.first_name }} {{ object.last_name }}
+      {% else %}
+        {{ object.name }}
+      {% endif %} </p>
+    {% bootstrap_button button_text button_type="submit" button_class="btn-danger" %}
+  </form>
 {% endblock %}

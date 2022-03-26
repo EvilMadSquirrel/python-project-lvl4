@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+  <div class="container wrapper flex-grow-1">
+    <h1 class="my-4">{{ title }}</h1>
+  <a class="nav-link" href="{% url 'statuses:create' %}">{% translate "Create status" %}</a>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>{% translate 'Name' %}</th>
+        <th>{% translate 'Creation date' %}</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for status in statuses %}
+        <tr>
+          <td>{{ status.id }}</td>
+          <td>{{ status.name }}</td>
+          <td>{{ user.created_at|date:"d.m.Y H:i" }}</td>
+          <td>
+            <a href="{% url 'statuses:change' status.id %}">{% translate "Change" %}</a>
+            <br>
+            <a href="{% url 'statuses:delete' status.id %}">{% translate "Delete" %}</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

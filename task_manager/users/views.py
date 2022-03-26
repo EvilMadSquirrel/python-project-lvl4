@@ -9,7 +9,7 @@ from .forms import CreateUserForm
 
 class UsersListPage(ListView):
     model = User
-    template_name = "user_list.html"
+    template_name = "users_list.html"
     context_object_name = "users"
 
     def get_context_data(self, **kwargs):

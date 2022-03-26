@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-24 10:19+0300\n"
+"POT-Creation-Date: 2022-03-26 16:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,51 +20,111 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
+#: task_manager/statuses/tests.py:32
+#, fuzzy
+#| msgid "User created successfully."
+msgid "Status created successfully"
+msgstr "Статус успешно создан."
+
+#: task_manager/statuses/tests.py:45
+#, fuzzy
+#| msgid "User changed successfully."
+msgid "Status changed successfully"
+msgstr "Статус успешно изменен."
+
+#: task_manager/statuses/tests.py:59
+#, fuzzy
+#| msgid "User deleted successfully."
+msgid "Status deleted successfully"
+msgstr "Статус успешно удален."
+
+#: task_manager/statuses/views.py:17 templates/base.html:30
+msgid "Statuses"
+msgstr "Статусы"
+
+#: task_manager/statuses/views.py:25
+#, fuzzy
+#| msgid "User created successfully."
+msgid "Status created successfully."
+msgstr "Статус успешно создан."
+
+#: task_manager/statuses/views.py:29 templates/statuses_list.html:7
+#, fuzzy
+#| msgid "Create user"
+msgid "Create status"
+msgstr "Создать статус"
+
+#: task_manager/statuses/views.py:30 task_manager/users/views.py:30
+msgid "Create"
+msgstr "Создать"
+
+#: task_manager/statuses/views.py:38
+#, fuzzy
+#| msgid "User changed successfully."
+msgid "Status changed successfully."
+msgstr "Статус успешно изменен."
+
+#: task_manager/statuses/views.py:42
+#, fuzzy
+#| msgid "Change user"
+msgid "Change status"
+msgstr "Изменить статус"
+
+#: task_manager/statuses/views.py:43 task_manager/users/views.py:44
+#: templates/statuses_list.html:24 templates/users_list.html:25
+msgid "Change"
+msgstr "Изменить"
+
+#: task_manager/statuses/views.py:51
+#, fuzzy
+#| msgid "User deleted successfully."
+msgid "Status deleted successfully."
+msgstr "Статус успешно удален."
+
+#: task_manager/statuses/views.py:55
+#, fuzzy
+#| msgid "Delete user"
+msgid "Delete status"
+msgstr "Удалить статус"
+
+#: task_manager/statuses/views.py:56 task_manager/users/views.py:57
+#: templates/statuses_list.html:26 templates/users_list.html:27
+msgid "Delete"
+msgstr "Удалить"
+
+#: task_manager/users/tests.py:43 task_manager/users/views.py:25
+msgid "User created successfully."
+msgstr "Пользователь успешно создан."
+
+#: task_manager/users/tests.py:60 task_manager/users/views.py:39
+msgid "User changed successfully."
+msgstr "Пользователь успешно изменен."
+
+#: task_manager/users/tests.py:73 task_manager/users/views.py:52
+msgid "User deleted successfully."
+msgstr "Пользователь успешно удален."
+
 #: task_manager/users/views.py:17 templates/base.html:26
 msgid "Users"
 msgstr "Пользователи"
 
-#: task_manager/users/views.py:25
-msgid "User created successfully."
-msgstr "Пользователь успешно создан."
-
-#: task_manager/users/views.py:28
+#: task_manager/users/views.py:29
 msgid "Create user"
 msgstr "Создать пользователя"
 
-#: task_manager/users/views.py:29
-msgid "Create"
-msgstr "Создать"
-
-#: task_manager/users/views.py:37
-msgid "User changed successfully."
-msgstr "Пользователь успешно изменен."
-
-#: task_manager/users/views.py:40
+#: task_manager/users/views.py:43
 msgid "Change user"
 msgstr "Изменить пользователя"
 
-#: task_manager/users/views.py:41 templates/user_list.html:25
-msgid "Change"
-msgstr "Изменить"
-
-#: task_manager/users/views.py:49
-msgid "User deleted successfully."
-msgstr "Пользователь успешно удален."
-
-#: task_manager/users/views.py:53
+#: task_manager/users/views.py:56
 msgid "Delete user"
 msgstr "Удалить пользователя"
-
-#: task_manager/users/views.py:54 templates/user_list.html:27
-msgid "Delete"
-msgstr "Удалить"
 
 #: task_manager/views.py:15
 msgid "Successfully logged in."
 msgstr "Вы успешно вошли."
 
-#: task_manager/views.py:20 task_manager/views.py:21 templates/base.html:36
+#: task_manager/views.py:20 task_manager/views.py:21 templates/base.html:41
 msgid "Log in"
 msgstr "Войти"
 
@@ -76,13 +136,13 @@ msgstr "Вы успешно вышли."
 msgid "Task manager"
 msgstr "Менеджер задач"
 
-#: templates/base.html:32
+#: templates/base.html:37
 #, fuzzy
 #| msgid "Log in"
 msgid "Log out"
 msgstr "Войти"
 
-#: templates/base.html:39
+#: templates/base.html:44
 msgid "Register"
 msgstr "Зарегистрироваться"
 
@@ -102,14 +162,18 @@ msgstr "Практические курсы по программировани�
 msgid "To learn more"
 msgstr "Узнать больше"
 
-#: templates/user_list.html:11
+#: templates/statuses_list.html:12
+msgid "Name"
+msgstr "Имя"
+
+#: templates/statuses_list.html:13 templates/users_list.html:13
+msgid "Creation date"
+msgstr "Дата создания"
+
+#: templates/users_list.html:11
 msgid "User name"
 msgstr "Имя пользователя"
 
-#: templates/user_list.html:12
+#: templates/users_list.html:12
 msgid "Full name"
 msgstr "Полное имя"
-
-#: templates/user_list.html:13
-msgid "Creation date"
-msgstr "Дата создания"
