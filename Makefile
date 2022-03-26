@@ -10,5 +10,8 @@ locale:
 compile:
 	@poetry run django-admin compilemessages --ignore=env
 
+test:
+	@poetry run python manage.py test
 
-.PHONY: run locale compile
+
+.PHONY: run locale compile test
