@@ -13,5 +13,9 @@ compile:
 test:
 	@poetry run python manage.py test
 
+migrate:
+	@poetry run python manage.py makemigrations
+	@poetry run python manage.py migrate
+
 
 .PHONY: run locale compile test
