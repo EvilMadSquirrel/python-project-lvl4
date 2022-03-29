@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -18,6 +20,10 @@ class StatusesListPage(LoginRequiredMixin, ListView):
         context["title"] = _("Statuses")
         return context
 
+    def handle_no_permission(self):
+        messages.error(self.request, _("You are not authorized"))
+        return redirect("login")
+
 
 class CreateStatusPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Status
@@ -31,6 +37,10 @@ class CreateStatusPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context["title"] = _("Create status")
         context["button_text"] = _("Create")
         return context
+
+    def handle_no_permission(self):
+        messages.error(self.request, _("You are not authorized"))
+        return redirect("login")
 
 
 class ChangeStatusPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -46,6 +56,10 @@ class ChangeStatusPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         context["button_text"] = _("Change")
         return context
 
+    def handle_no_permission(self):
+        messages.error(self.request, _("You are not authorized"))
+        return redirect("login")
+
 
 class DeleteStatusPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Status
@@ -58,3 +72,7 @@ class DeleteStatusPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         context["title"] = _("Delete status")
         context["button_text"] = _("Delete")
         return context
+
+    def handle_no_permission(self):
+        messages.error(self.request, _("You are not authorized"))
+        return redirect("login")
