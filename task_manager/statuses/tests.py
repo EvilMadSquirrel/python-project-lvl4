@@ -21,6 +21,13 @@ class TestStatuses(TestCase):
         statuses_list = list(response.context["statuses"])
         self.assertQuerysetEqual(statuses_list, [self.status1, self.status2])
 
+    def test_statuses_list_no_login(self):
+        response = self.client.get(reverse("statuses:list"))
+        self.assertRedirects(
+            response,
+            "/login/",
+        )
+
     def test_create_status(self):
         self.client.force_login(self.user)
         status = {"name": "status3"}
