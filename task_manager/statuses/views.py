@@ -67,6 +67,13 @@ class DeleteStatusPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_url = reverse_lazy("statuses:list")
     success_message = _("Status deleted successfully.")
 
+    def form_valid(self, form):
+        if self.get_object().tasks.all():
+            messages.error(self.request, _("Cannot delete status because it is in use."))
+        else:
+            super(DeleteStatusPage, self).form_valid(form)
+        return redirect(self.success_url)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = _("Delete status")

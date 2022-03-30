@@ -66,11 +66,11 @@ class ChangeTaskPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return redirect("login")
 
 
-class DeleteTaskPage(DeleteView):
+class DeleteTaskPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Task
     template_name = "delete.html"
     success_url = reverse_lazy("tasks:list")
-    success_message = _("Task deleted successfully.")
+    success_message = _("Task deleted successfully")
 
     def form_valid(self, form):
         if self.get_object().author != self.request.user:

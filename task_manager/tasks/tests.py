@@ -36,25 +36,25 @@ class TestTasks(TestCase):
         task = {
             "name": "task3",
             "description": "description3",
-            "status": self.status1,
-            "author": self.user1,
-            "executor": self.user2,
+            "status": 1,
+            "author": 1,
+            "executor": 2,
         }
         response = self.client.post(reverse("tasks:create"), task, follow=True)
         self.assertRedirects(response, "/tasks/")
         self.assertContains(response, _("Task created successfully"))
-        created_task = Status.objects.get(name=task["name"])
+        created_task = Task.objects.get(name=task["name"])
         self.assertEquals(created_task.name, "task3")
 
     def test_change_task(self):
         self.client.force_login(self.user1)
         url = reverse("tasks:change", args=(self.task1.pk,))
         changed_task = {
-            "name": self.task1.name,
+            "name": "changed name",
             "description": "changed description",
-            "status": self.task1.status,
-            "author": self.user1,
-            "executor": self.task1.executor,
+            "status": 1,
+            "author": 1,
+            "executor": 2,
         }
         response = self.client.post(url, changed_task, follow=True)
         self.assertRedirects(response, "/tasks/")
