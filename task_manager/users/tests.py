@@ -7,9 +7,7 @@ from task_manager.tasks.models import Task
 
 
 class TestUsers(TestCase):
-    fixtures = [
-        "users.json", "tasks.json"
-    ]
+    fixtures = ["users.json", "tasks.json"]
 
     def setUp(self) -> None:
         self.user1 = User.objects.get(pk=1)
@@ -84,6 +82,3 @@ class TestUsers(TestCase):
 
         self.assertRedirects(response, "/users/")
         self.assertContains(response, _("User deleted successfully."))
-
-
-
