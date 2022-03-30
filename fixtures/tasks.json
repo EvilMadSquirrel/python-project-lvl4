@@ -1,0 +1,24 @@
+[
+  {
+    "model": "tasks.task",
+    "pk": 1,
+    "fields": {
+      "name": "task1",
+      "description": "description1",
+      "status": 1,
+      "author": 1,
+      "executor": 2
+    }
+  },
+  {
+    "model": "tasks.task",
+    "pk": 2,
+    "fields": {
+      "name": "task2",
+      "description": "description2",
+      "status": 2,
+      "author": 2,
+      "executor": 1
+    }
+  }
+]

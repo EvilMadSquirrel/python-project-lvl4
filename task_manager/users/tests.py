@@ -3,16 +3,20 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from django.contrib.auth.models import User
+from task_manager.tasks.models import Task
 
 
 class TestUsers(TestCase):
     fixtures = [
-        "users.json",
+        "users.json", "tasks.json"
     ]
 
     def setUp(self) -> None:
         self.user1 = User.objects.get(pk=1)
         self.user2 = User.objects.get(pk=2)
+
+        self.task1 = Task.objects.get(pk=1)
+        self.task2 = Task.objects.get(pk=2)
 
     def test_users_list(self):
         response = self.client.get(reverse("users:list"))
@@ -61,7 +65,16 @@ class TestUsers(TestCase):
         changed_user = User.objects.get(username=user.username)
         self.assertTrue(changed_user.check_password("345"))
 
+    def test_user_with_tasks_delete(self):
+        url = reverse("users:delete", args=(self.user1.id,))
+        response = self.client.post(url, follow=True)
+        self.assertTrue(User.objects.filter(pk=self.user1.id).exists())
+        self.assertRedirects(response, "/users/")
+        self.assertContains(response, _("Cannot delete user because it is in use"))
+
     def test_user_delete(self):
+        self.task1.delete()
+        self.task2.delete()
         url = reverse("users:delete", args=(self.user1.id,))
         response = self.client.post(url, follow=True)
 
@@ -71,4 +84,6 @@ class TestUsers(TestCase):
 
         self.assertRedirects(response, "/users/")
         self.assertContains(response, _("User deleted successfully."))
+
+
 
