@@ -4,7 +4,7 @@
 {% block content %}
   <div class="container wrapper flex-grow-1">
     <h1 class="my-4">{{ title }}</h1>
-  <a class="nav-link" href="{% url 'statuses:create' %}">{% translate "Create status" %}</a>
+  <a class="nav-link" href="{% url 'labels:create' %}">{% translate "Create label" %}</a>
     <table class="table table-striped">
       <thead>
       <tr>
@@ -15,15 +15,15 @@
       </tr>
       </thead>
       <tbody>
-      {% for status in statuses %}
+      {% for label in labels %}
         <tr>
-          <td>{{ status.id }}</td>
-          <td>{{ status.name }}</td>
-          <td>{{ status.created_at|date:"d.m.Y H:i" }}</td>
+          <td>{{ label.id }}</td>
+          <td>{{ label.name }}</td>
+          <td>{{ label.created_at|date:"d.m.Y H:i" }}</td>
           <td>
-            <a href="{% url 'statuses:change' status.id %}">{% translate "Change" %}</a>
+            <a href="{% url 'labels:change' label.id %}">{% translate "Change" %}</a>
             <br>
-            <a href="{% url 'statuses:delete' status.id %}">{% translate "Delete" %}</a>
+            <a href="{% url 'labels:delete' label.id %}">{% translate "Delete" %}</a>
           </td>
         </tr>
       {% endfor %}
