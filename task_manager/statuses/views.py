@@ -30,7 +30,7 @@ class CreateStatusPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = StatusForm
     template_name = "form.html"
     success_url = reverse_lazy("statuses:list")
-    success_message = _("Status created successfully.")
+    success_message = _("Status created successfully")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -48,7 +48,7 @@ class ChangeStatusPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = StatusForm
     template_name = "form.html"
     success_url = reverse_lazy("statuses:list")
-    success_message = _("Status changed successfully.")
+    success_message = _("Status changed successfully")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -65,11 +65,11 @@ class DeleteStatusPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Status
     template_name = "delete.html"
     success_url = reverse_lazy("statuses:list")
-    success_message = _("Status deleted successfully.")
+    success_message = _("Status deleted successfully")
 
     def form_valid(self, form):
         if self.get_object().tasks.all():
-            messages.error(self.request, _("Cannot delete status because it is in use."))
+            messages.error(self.request, _("Cannot delete status because it is in use"))
         else:
             super(DeleteStatusPage, self).form_valid(form)
         return redirect(self.success_url)

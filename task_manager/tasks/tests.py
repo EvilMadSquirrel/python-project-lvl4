@@ -5,12 +5,19 @@ from django.utils.translation import gettext_lazy as _
 from .models import Task
 from django.contrib.auth.models import User
 from task_manager.statuses.models import Status
+from task_manager.labels.models import Label
 
 
 class TestTasks(TestCase):
-    fixtures = ["tasks.json", "statuses.json", "users.json"]
+    fixtures = ["tasks.json", "statuses.json", "users.json", "labels.json"]
 
     def setUp(self) -> None:
+        self.label1 = Label.objects.get(pk=1)
+        self.label2 = Label.objects.get(pk=2)
+        self.label3 = Label.objects.get(pk=3)
+        self.label4 = Label.objects.get(pk=4)
+        self.label5 = Label.objects.get(pk=5)
+
         self.task1 = Task.objects.get(pk=1)
         self.task2 = Task.objects.get(pk=2)
 
@@ -39,6 +46,7 @@ class TestTasks(TestCase):
             "status": 1,
             "author": 1,
             "executor": 2,
+            "labels": [1, 2],
         }
         response = self.client.post(reverse("tasks:create"), task, follow=True)
         self.assertRedirects(response, "/tasks/")
@@ -55,6 +63,7 @@ class TestTasks(TestCase):
             "status": 1,
             "author": 1,
             "executor": 2,
+            "labels": [3, 4, 5],
         }
         response = self.client.post(url, changed_task, follow=True)
         self.assertRedirects(response, "/tasks/")
@@ -77,4 +86,4 @@ class TestTasks(TestCase):
         response = self.client.post(url, follow=True)
         self.assertTrue(Task.objects.filter(pk=self.task2.pk).exists())
         self.assertRedirects(response, "/tasks/")
-        self.assertContains(response, _("A task can only be deleted by its author."))
+        self.assertContains(response, _("A task can only be deleted by its author"))

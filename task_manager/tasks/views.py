@@ -31,7 +31,7 @@ class CreateTaskPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = TaskForm
     template_name = "form.html"
     success_url = reverse_lazy("tasks:list")
-    success_message = _("Task created successfully.")
+    success_message = _("Task created successfully")
 
     def form_valid(self, form):
         form.instance.author = User.objects.get(pk=self.request.user.pk)
@@ -53,7 +53,7 @@ class ChangeTaskPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = TaskForm
     template_name = "form.html"
     success_url = reverse_lazy("tasks:list")
-    success_message = _("Task changed successfully.")
+    success_message = _("Task changed successfully")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -74,7 +74,7 @@ class DeleteTaskPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
     def form_valid(self, form):
         if self.get_object().author != self.request.user:
-            messages.error(self.request, _("A task can only be deleted by its author."))
+            messages.error(self.request, _("A task can only be deleted by its author"))
         else:
             super(DeleteTaskPage, self).form_valid(form)
         return redirect(self.success_url)

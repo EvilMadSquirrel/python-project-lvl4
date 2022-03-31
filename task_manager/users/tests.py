@@ -5,14 +5,21 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from task_manager.tasks.models import Task
 from task_manager.statuses.models import Status
+from task_manager.labels.models import Label
 
 
 class TestUsers(TestCase):
-    fixtures = ["users.json", "tasks.json", "statuses.json"]
+    fixtures = ["users.json", "tasks.json", "statuses.json", "labels.json"]
 
     def setUp(self) -> None:
         self.user1 = User.objects.get(pk=1)
         self.user2 = User.objects.get(pk=2)
+
+        self.label1 = Label.objects.get(pk=1)
+        self.label2 = Label.objects.get(pk=2)
+        self.label3 = Label.objects.get(pk=3)
+        self.label4 = Label.objects.get(pk=4)
+        self.label5 = Label.objects.get(pk=5)
 
         self.status1 = Status.objects.get(pk=1)
         self.status2 = Status.objects.get(pk=2)
@@ -46,7 +53,7 @@ class TestUsers(TestCase):
 
         self.assertRedirects(response, "/login/")
 
-        self.assertContains(response, _("User created successfully."))
+        self.assertContains(response, _("User created successfully"))
         created_user = User.objects.get(username=new_user["username"])
         self.assertTrue(created_user.check_password("123"))
 
@@ -63,7 +70,7 @@ class TestUsers(TestCase):
 
         response = self.client.post(path=url, data=new_data, follow=True)
         self.assertRedirects(response, "/users/")
-        self.assertContains(response, _("User changed successfully."))
+        self.assertContains(response, _("User changed successfully"))
         changed_user = User.objects.get(username=user.username)
         self.assertTrue(changed_user.check_password("345"))
 
@@ -85,4 +92,4 @@ class TestUsers(TestCase):
             User.objects.get(pk=self.user1.id)
 
         self.assertRedirects(response, "/users/")
-        self.assertContains(response, _("User deleted successfully."))
+        self.assertContains(response, _("User deleted successfully"))

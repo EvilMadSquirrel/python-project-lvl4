@@ -24,7 +24,7 @@ class CreateUserPage(SuccessMessageMixin, CreateView):
     template_name = "form.html"
     form_class = CreateUserForm
     success_url = reverse_lazy("login")
-    success_message = _("User created successfully.")
+    success_message = _("User created successfully")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -38,7 +38,7 @@ class ChangeUserPage(SuccessMessageMixin, UpdateView):
     template_name = "form.html"
     form_class = CreateUserForm
     success_url = reverse_lazy("users:list")
-    success_message = _("User changed successfully.")
+    success_message = _("User changed successfully")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -51,11 +51,11 @@ class DeleteUserPage(SuccessMessageMixin, DeleteView):
     model = User
     template_name = "delete.html"
     success_url = reverse_lazy("users:list")
-    success_message = _("User deleted successfully.")
+    success_message = _("User deleted successfully")
 
     def form_valid(self, form):
         if self.get_object().tasks.all() or self.get_object().tasks_in_work.all():
-            messages.error(self.request, _("Cannot delete user because it is in use."))
+            messages.error(self.request, _("Cannot delete user because it is in use"))
         else:
             super(DeleteUserPage, self).form_valid(form)
         return redirect(self.success_url)

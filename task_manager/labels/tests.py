@@ -4,23 +4,27 @@ from django.utils.translation import gettext_lazy as _
 
 from .models import Label
 from task_manager.tasks.models import Task
+from task_manager.statuses.models import Status
 from django.contrib.auth.models import User
 
 
 class TestLabels(TestCase):
-    fixtures = ["labels.json", "tasks.json", "users.json"]
+    fixtures = ["labels.json", "tasks.json", "users.json", "statuses.json"]
 
     def setUp(self) -> None:
         self.user = User.objects.get(pk=1)
-
-        self.task1 = Task.objects.get(pk=1)
-        self.task2 = Task.objects.get(pk=2)
 
         self.label1 = Label.objects.get(pk=1)
         self.label2 = Label.objects.get(pk=2)
         self.label3 = Label.objects.get(pk=3)
         self.label4 = Label.objects.get(pk=4)
         self.label5 = Label.objects.get(pk=5)
+
+        self.status1 = Status.objects.get(pk=1)
+        self.status2 = Status.objects.get(pk=2)
+
+        self.task1 = Task.objects.get(pk=1)
+        self.task2 = Task.objects.get(pk=2)
 
     def test_labels_list(self):
         self.client.force_login(self.user)
