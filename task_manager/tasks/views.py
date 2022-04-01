@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView
+from django_filters.views import FilterView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -8,17 +9,19 @@ from django.utils.translation import gettext_lazy as _
 
 from django.contrib.auth.models import User
 from .models import Task
-from .forms import TaskForm
+from .forms import TaskForm, TasksFilter
 
 
-class TasksListPage(LoginRequiredMixin, ListView):
+class TasksListPage(LoginRequiredMixin, FilterView):
     model = Task
     template_name = "tasks_list.html"
     context_object_name = "tasks"
+    filterset_class = TasksFilter
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = _("Tasks")
+        context["button_text"] = _("Show")
         return context
 
     def handle_no_permission(self):

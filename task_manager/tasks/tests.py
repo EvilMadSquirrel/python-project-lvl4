@@ -26,6 +26,14 @@ class TestTasks(TestCase):
 
         self.status1 = Status.objects.get(pk=1)
         self.status2 = Status.objects.get(pk=2)
+        self.task = {
+            "name": "task3",
+            "description": "description3",
+            "status": 1,
+            "author": 1,
+            "executor": 2,
+            "labels": [1, 2],
+        }
 
     def test_tasks_list(self):
         self.client.force_login(self.user1)
@@ -40,18 +48,10 @@ class TestTasks(TestCase):
 
     def test_create_task(self):
         self.client.force_login(self.user1)
-        task = {
-            "name": "task3",
-            "description": "description3",
-            "status": 1,
-            "author": 1,
-            "executor": 2,
-            "labels": [1, 2],
-        }
-        response = self.client.post(reverse("tasks:create"), task, follow=True)
+        response = self.client.post(reverse("tasks:create"), self.task, follow=True)
         self.assertRedirects(response, "/tasks/")
         self.assertContains(response, _("Task created successfully"))
-        created_task = Task.objects.get(name=task["name"])
+        created_task = Task.objects.get(name=self.task["name"])
         self.assertEquals(created_task.name, "task3")
 
     def test_change_task(self):
@@ -87,3 +87,34 @@ class TestTasks(TestCase):
         self.assertTrue(Task.objects.filter(pk=self.task2.pk).exists())
         self.assertRedirects(response, "/tasks/")
         self.assertContains(response, _("A task can only be deleted by its author"))
+
+    def test_filter_self_tasks(self):
+        self.client.force_login(self.user1)
+        filtered_list = '{0}?self_task=on'.format(reverse('tasks:list'))
+        response = self.client.get(filtered_list)
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(list(response.context['tasks']), [self.task1])
+
+    def test_filter_by_status(self):
+        self.client.force_login(self.user1)
+        filtered_list = '{0}?status=2'.format(reverse('tasks:list'))
+        response = self.client.get(filtered_list)
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(list(response.context['tasks']), [self.task2])
+
+    def test_filter_by_executor(self):
+        self.client.force_login(self.user1)
+        filtered_list = '{0}?executor=2'.format(reverse('tasks:list'))
+        response = self.client.get(filtered_list)
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(list(response.context['tasks']), [self.task1])
+
+    def test_filter_by_label(self):
+        self.client.force_login(self.user1)
+        self.client.post(reverse('tasks:create'), self.task, follow=True)
+        created_task = Task.objects.get(name=self.task['name'])
+        filtered_list = '{0}?labels=1'.format(reverse('tasks:list'))
+        response = self.client.get(filtered_list)
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(list(response.context['tasks']), [self.task1, created_task])
+

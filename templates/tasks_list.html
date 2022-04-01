@@ -1,10 +1,21 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load bootstrap4 %}
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
   <div class="container wrapper flex-grow-1">
     <h1 class="my-4">{{ title }}</h1>
-  <a class="nav-link" href="{% url 'tasks:create' %}">{% translate "Create task" %}</a>
+    <div class="card mb-3">
+      <div class="card-body bg-light">
+        <form class="form-inline center my-auto" method="get">
+          {% csrf_token %}
+          {% bootstrap_form filter.form form_group_class="form-group" field_class="ml-2 mr-3"%}
+          {% bootstrap_button button_text button_type="submit" button_class="btn-primary" %}
+        </form>
+      </div>
+    </div>
+
+    <a class="nav-link" href="{% url 'tasks:create' %}">{% translate "Create task" %}</a>
     <table class="table table-striped">
       <thead>
       <tr>
