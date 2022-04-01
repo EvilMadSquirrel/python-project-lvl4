@@ -17,5 +17,10 @@ migrate:
 	@poetry run python manage.py makemigrations
 	@poetry run python manage.py migrate
 
+coverage:
+	@poetry run coverage run manage.py test
+	@poetry run coverage xml
+	@poetry run coverage report
 
-.PHONY: run locale compile test
+
+.PHONY: run locale compile test lint
