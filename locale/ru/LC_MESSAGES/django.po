@@ -200,7 +200,7 @@ msgstr "Вы успешно вошли"
 
 #: task_manager/views.py:20 task_manager/views.py:21 templates/base.html:47
 msgid "Log in"
-msgstr "Войти"
+msgstr "Вход"
 
 #: task_manager/views.py:30
 msgid "You are logged out"
