@@ -22,5 +22,8 @@ coverage:
 	@poetry run coverage xml
 	@poetry run coverage report
 
+lint:
+	@poetry run flake8 task_manager
+
 
 .PHONY: run locale compile test lint

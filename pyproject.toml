@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "training Django project"
 authors = ["EvilMadSquirrel <minichev.s.l@gmail.com>"]
 license = "MIT"
+packages = [
+    { include = "task_manager" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -15,6 +18,7 @@ django-bootstrap4 = "^22.1"
 dj-database-url = "^0.5.0"
 django-filter = "^21.1"
 rollbar = "^0.16.2"
+wemake-python-styleguide = "^0.16.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
