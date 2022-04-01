@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-01 14:39+0300\n"
+"POT-Creation-Date: 2022-04-01 15:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgid "Create label"
 msgstr "Создать метку"
 
 #: task_manager/labels/views.py:38 task_manager/statuses/views.py:38
-#: task_manager/tasks/views.py:46 task_manager/users/views.py:32
+#: task_manager/tasks/views.py:46
 msgid "Create"
 msgstr "Создать"
 
@@ -186,6 +186,10 @@ msgstr "Пользователи"
 msgid "Create user"
 msgstr "Создать пользователя"
 
+#: task_manager/users/views.py:32
+msgid "Register"
+msgstr "Зарегистрировать"
+
 #: task_manager/users/views.py:45
 msgid "Change user"
 msgstr "Изменить пользователя"
@@ -216,10 +220,10 @@ msgstr "Менеджер задач"
 
 #: templates/base.html:43
 msgid "Log out"
-msgstr "Выйти"
+msgstr "Выход"
 
 #: templates/base.html:50
-msgid "Register"
+msgid "Sign in"
 msgstr "Регистрация"
 
 #: templates/delete.html:9
@@ -263,3 +267,8 @@ msgstr "Имя пользователя"
 #: templates/users_list.html:12
 msgid "Full name"
 msgstr "Полное имя"
+
+#, fuzzy
+#~| msgid "Register"
+#~ msgid "Register."
+#~ msgstr "Регистрация"

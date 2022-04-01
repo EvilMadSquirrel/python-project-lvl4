@@ -29,7 +29,7 @@ class CreateUserPage(SuccessMessageMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = _("Create user")
-        context["button_text"] = _("Create")
+        context["button_text"] = _("Register")
         return context
 
 
