@@ -204,7 +204,7 @@ msgstr "Вход"
 
 #: task_manager/views.py:30
 msgid "You are logged out"
-msgstr "Вы успешно вышли"
+msgstr "Вы разлогинены"
 
 #: templates/base.html:19
 msgid "Task manager"
@@ -216,7 +216,7 @@ msgstr "Выйти"
 
 #: templates/base.html:50
 msgid "Register"
-msgstr "Зарегистрироваться"
+msgstr "Регистрация"
 
 #: templates/delete.html:9
 msgid "Are you sure you want to delete"
