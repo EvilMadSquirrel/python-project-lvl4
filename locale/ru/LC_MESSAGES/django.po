@@ -47,7 +47,7 @@ msgstr "Метки"
 #: task_manager/tasks/views.py:28 task_manager/tasks/views.py:50
 #: task_manager/tasks/views.py:68 task_manager/tasks/views.py:92
 msgid "You are not authorized"
-msgstr "Вы не авторизованы"
+msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
 
 #: task_manager/labels/views.py:37 templates/labels_list.html:7
 msgid "Create label"
@@ -196,7 +196,7 @@ msgstr "Удалить пользователя"
 
 #: task_manager/views.py:15
 msgid "Successfully logged in"
-msgstr "Вы успешно вошли"
+msgstr "Вы залогинены"
 
 #: task_manager/views.py:20 templates/base.html:47
 msgid "Log in"
