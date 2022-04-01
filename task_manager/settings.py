@@ -35,6 +35,7 @@ ALLOWED_HOSTS = [
     "evilmadsquirrel-task-manager.herokuapp.com",
     "localhost",
     "127.0.0.1",
+    "webserver",
 ]
 
 
