@@ -70,6 +70,13 @@ class DeleteUserPage(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixi
         context["button_text"] = _("Yes, delete")
         return context
 
+    def form_valid(self, form):
+        if self.get_object().tasks.all() or self.get_object().tasks_in_work.all():
+            messages.error(self.request, _("Cannot delete user because it is in use"))
+        else:
+            super(DeleteUserPage, self).form_valid(form)
+        return redirect("/users/")
+
     def handle_no_permission(self):
         messages.error(self.request, _("You do not have permission to change another user"))
         return redirect("/users/")
