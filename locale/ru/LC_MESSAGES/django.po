@@ -84,7 +84,7 @@ msgstr "Статус успешно создан"
 
 #: task_manager/statuses/tests.py:49 task_manager/statuses/views.py:51
 msgid "Status changed successfully"
-msgstr "Статус успешно изменен"
+msgstr "Статус успешно изменён"
 
 #: task_manager/statuses/tests.py:58 task_manager/statuses/views.py:72
 msgid "Cannot delete status because it is in use"
@@ -92,7 +92,7 @@ msgstr "Невозможно удалить статус, потому что о
 
 #: task_manager/statuses/tests.py:69 task_manager/statuses/views.py:68
 msgid "Status deleted successfully"
-msgstr "Статус успешно удален"
+msgstr "Статус успешно удалён"
 
 #: task_manager/statuses/views.py:20 templates/base.html:30
 msgid "Statuses"
@@ -142,7 +142,7 @@ msgstr "Задачу может удалить только её автор"
 
 #: task_manager/tasks/views.py:23 templates/base.html:33
 msgid "Tasks"
-msgstr "задачи"
+msgstr "Задачи"
 
 #: task_manager/tasks/views.py:24
 msgid "Show"
@@ -174,7 +174,7 @@ msgstr "Невозможно удалить пользователя, потом
 
 #: task_manager/users/tests.py:95 task_manager/users/views.py:62
 msgid "User deleted successfully"
-msgstr "Пользователь успешно удален"
+msgstr "Пользователь успешно удалён"
 
 #: task_manager/users/views.py:20 templates/base.html:26
 msgid "Users"
