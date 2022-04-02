@@ -3,13 +3,10 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from django.contrib.auth.models import User
-from task_manager.tasks.models import Task
-from task_manager.statuses.models import Status
-from task_manager.labels.models import Label
 
 
 class TestUsers(TestCase):
-    fixtures = ["users.json", "tasks.json", "statuses.json", "labels.json"]
+    fixtures = ["users.json"]
 
     def setUp(self) -> None:
         self.user1 = User.objects.get(pk=1)
