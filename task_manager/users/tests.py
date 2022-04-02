@@ -15,18 +15,6 @@ class TestUsers(TestCase):
         self.user1 = User.objects.get(pk=1)
         self.user2 = User.objects.get(pk=2)
 
-        self.label1 = Label.objects.get(pk=1)
-        self.label2 = Label.objects.get(pk=2)
-        self.label3 = Label.objects.get(pk=3)
-        self.label4 = Label.objects.get(pk=4)
-        self.label5 = Label.objects.get(pk=5)
-
-        self.status1 = Status.objects.get(pk=1)
-        self.status2 = Status.objects.get(pk=2)
-
-        self.task1 = Task.objects.get(pk=1)
-        self.task2 = Task.objects.get(pk=2)
-
     def test_users_list(self):
         response = self.client.get(reverse("users:list"))
         users_list = list(response.context["users"])
@@ -59,6 +47,7 @@ class TestUsers(TestCase):
 
     def test_user_update(self):
         user = self.user1
+        self.client.force_login(user)
         url = reverse("users:change", args=(user.id,))
         new_data = {
             "username": user.username,
@@ -74,16 +63,8 @@ class TestUsers(TestCase):
         changed_user = User.objects.get(username=user.username)
         self.assertTrue(changed_user.check_password("345"))
 
-    def test_user_with_tasks_delete(self):
-        url = reverse("users:delete", args=(self.user1.id,))
-        response = self.client.post(url, follow=True)
-        self.assertTrue(User.objects.filter(pk=self.user1.id).exists())
-        self.assertRedirects(response, "/users/")
-        self.assertContains(response, _("Cannot delete user because it is in use"))
-
     def test_user_delete(self):
-        self.task1.delete()
-        self.task2.delete()
+        self.client.force_login(self.user1)
         url = reverse("users:delete", args=(self.user1.id,))
         response = self.client.post(url, follow=True)
 
