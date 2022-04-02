@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
@@ -33,7 +34,7 @@ class CreateUserPage(SuccessMessageMixin, CreateView):
         return context
 
 
-class ChangeUserPage(SuccessMessageMixin, UpdateView):
+class ChangeUserPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     template_name = "form.html"
     form_class = CreateUserForm
@@ -47,7 +48,7 @@ class ChangeUserPage(SuccessMessageMixin, UpdateView):
         return context
 
 
-class DeleteUserPage(SuccessMessageMixin, DeleteView):
+class DeleteUserPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = User
     template_name = "delete.html"
     success_url = reverse_lazy("users:list")
@@ -56,6 +57,8 @@ class DeleteUserPage(SuccessMessageMixin, DeleteView):
     def form_valid(self, form):
         if self.get_object().tasks.all() or self.get_object().tasks_in_work.all():
             messages.error(self.request, _("Cannot delete user because it is in use"))
+        elif self.get_object() != self.request.user:
+            messages.error(self.request, _("You do not have permission to change another user"))
         else:
             super(DeleteUserPage, self).form_valid(form)
         return redirect(self.success_url)

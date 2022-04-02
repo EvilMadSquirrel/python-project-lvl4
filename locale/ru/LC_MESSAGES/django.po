@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-02 13:20+0300\n"
+"POT-Creation-Date: 2022-04-02 13:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgid "Change label"
 msgstr "Изменить метку"
 
 #: task_manager/labels/views.py:56 task_manager/statuses/views.py:56
-#: task_manager/tasks/views.py:64 task_manager/users/views.py:46
+#: task_manager/tasks/views.py:64 task_manager/users/views.py:47
 #: templates/labels_list.html:24 templates/statuses_list.html:24
 #: templates/tasks_list.html:41 templates/users_list.html:25
 msgid "Change"
@@ -74,7 +74,7 @@ msgid "Delete label"
 msgstr "Удалить метку"
 
 #: task_manager/labels/views.py:80 task_manager/statuses/views.py:80
-#: task_manager/tasks/views.py:88 task_manager/users/views.py:66
+#: task_manager/tasks/views.py:88 task_manager/users/views.py:69
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
@@ -160,39 +160,43 @@ msgstr "Изменить задачу"
 msgid "Delete task"
 msgstr "Удалить задачу"
 
-#: task_manager/users/tests.py:56 task_manager/users/views.py:27
+#: task_manager/users/tests.py:56 task_manager/users/views.py:28
 msgid "User created successfully"
 msgstr "Пользователь успешно зарегистрирован"
 
-#: task_manager/users/tests.py:73 task_manager/users/views.py:41
+#: task_manager/users/tests.py:73 task_manager/users/views.py:42
 msgid "User changed successfully"
 msgstr "Пользователь успешно изменён"
 
-#: task_manager/users/tests.py:82 task_manager/users/views.py:58
+#: task_manager/users/tests.py:82 task_manager/users/views.py:59
 msgid "Cannot delete user because it is in use"
 msgstr "Невозможно удалить пользователя, потому что он используется"
 
-#: task_manager/users/tests.py:95 task_manager/users/views.py:54
+#: task_manager/users/tests.py:95 task_manager/users/views.py:55
 msgid "User deleted successfully"
 msgstr "Пользователь успешно удален"
 
-#: task_manager/users/views.py:19 templates/base.html:26
+#: task_manager/users/views.py:20 templates/base.html:26
 msgid "Users"
 msgstr "Пользователи"
 
-#: task_manager/users/views.py:31
+#: task_manager/users/views.py:32
 msgid "Create user"
 msgstr "Создать пользователя"
 
-#: task_manager/users/views.py:32
+#: task_manager/users/views.py:33
 msgid "Register"
 msgstr "Зарегистрировать"
 
-#: task_manager/users/views.py:45
+#: task_manager/users/views.py:46
 msgid "Change user"
 msgstr "Изменить пользователя"
 
-#: task_manager/users/views.py:65
+#: task_manager/users/views.py:61
+msgid "You do not have permission to change another user"
+msgstr "У вас нет прав для изменения другого пользователя"
+
+#: task_manager/users/views.py:68
 msgid "Delete user"
 msgstr "Удалить пользователя"
 
