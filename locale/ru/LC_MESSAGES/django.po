@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-02 13:17+0300\n"
+"POT-Creation-Date: 2022-04-02 13:20+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,11 +74,9 @@ msgid "Delete label"
 msgstr "Удалить метку"
 
 #: task_manager/labels/views.py:80 task_manager/statuses/views.py:80
-#: task_manager/tasks/views.py:88 templates/labels_list.html:26
-#: templates/statuses_list.html:26 templates/tasks_list.html:43
-#: templates/users_list.html:27
-msgid "Delete"
-msgstr "Удалить"
+#: task_manager/tasks/views.py:88 task_manager/users/views.py:66
+msgid "Yes, delete"
+msgstr "Да, удалить"
 
 #: task_manager/statuses/tests.py:39 task_manager/statuses/views.py:33
 msgid "Status created successfully"
@@ -198,10 +196,6 @@ msgstr "Изменить пользователя"
 msgid "Delete user"
 msgstr "Удалить пользователя"
 
-#: task_manager/users/views.py:66
-msgid "Yes, delete"
-msgstr "Да, удалить"
-
 #: task_manager/views.py:15
 msgid "Successfully logged in"
 msgstr "Вы залогинены"
@@ -255,6 +249,11 @@ msgstr "Имя"
 #: templates/tasks_list.html:27 templates/users_list.html:13
 msgid "Creation date"
 msgstr "Дата создания"
+
+#: templates/labels_list.html:26 templates/statuses_list.html:26
+#: templates/tasks_list.html:43 templates/users_list.html:27
+msgid "Delete"
+msgstr "Удалить"
 
 #: templates/tasks_list.html:24
 msgid "Status"
