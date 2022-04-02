@@ -164,7 +164,7 @@ msgstr "Удалить задачу"
 
 #: task_manager/users/tests.py:56 task_manager/users/views.py:27
 msgid "User created successfully"
-msgstr "Пользователь успешно создан"
+msgstr "Пользователь успешно зарегистрирован"
 
 #: task_manager/users/tests.py:73 task_manager/users/views.py:41
 msgid "User changed successfully"
