@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-02 14:05+0300\n"
+"POT-Creation-Date: 2022-04-02 14:55+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgid "Change label"
 msgstr "Изменить метку"
 
 #: task_manager/labels/views.py:56 task_manager/statuses/views.py:56
-#: task_manager/tasks/views.py:64 task_manager/users/views.py:57
+#: task_manager/tasks/views.py:64 task_manager/users/views.py:50
 #: templates/labels_list.html:24 templates/statuses_list.html:24
 #: templates/tasks_list.html:41 templates/users_list.html:25
 msgid "Change"
@@ -74,7 +74,7 @@ msgid "Delete label"
 msgstr "Удалить метку"
 
 #: task_manager/labels/views.py:80 task_manager/statuses/views.py:80
-#: task_manager/tasks/views.py:88 task_manager/users/views.py:80
+#: task_manager/tasks/views.py:88 task_manager/users/views.py:70
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
@@ -172,7 +172,7 @@ msgstr "Пользователь успешно изменён"
 msgid "Cannot delete user because it is in use"
 msgstr "Невозможно удалить пользователя, потому что он используется"
 
-#: task_manager/users/tests.py:95 task_manager/users/views.py:65
+#: task_manager/users/tests.py:95 task_manager/users/views.py:62
 msgid "User deleted successfully"
 msgstr "Пользователь успешно удален"
 
@@ -188,15 +188,15 @@ msgstr "Создать пользователя"
 msgid "Register"
 msgstr "Зарегистрировать"
 
-#: task_manager/users/views.py:49 task_manager/users/views.py:72
-msgid "You do not have permission to change another user"
-msgstr "У вас нет прав для изменения другого пользователя"
-
-#: task_manager/users/views.py:56
+#: task_manager/users/views.py:49
 msgid "Change user"
 msgstr "Изменить пользователя"
 
-#: task_manager/users/views.py:79
+#: task_manager/users/views.py:54 task_manager/users/views.py:74
+msgid "You do not have permission to change another user"
+msgstr "У вас нет прав для изменения другого пользователя"
+
+#: task_manager/users/views.py:69
 msgid "Delete user"
 msgstr "Удалить пользователя"
 

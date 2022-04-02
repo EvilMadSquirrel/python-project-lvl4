@@ -34,7 +34,7 @@ class CreateUserPage(SuccessMessageMixin, CreateView):
         return context
 
 
-class ChangeUserPage(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
+class ChangeUserPage(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, UpdateView):
     model = User
     template_name = "form.html"
     form_class = CreateUserForm
@@ -42,14 +42,7 @@ class ChangeUserPage(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
     success_message = _("User changed successfully")
 
     def test_func(self):
-        return self.kwargs['pk'] == self.get_object().pk
-
-    def form_valid(self, form):
-        if self.get_object() != self.request.user:
-            messages.error(self.request, _("You do not have permission to change another user"))
-        else:
-            super(ChangeUserPage, self).form_valid(form)
-        return redirect(self.success_url)
+        return self.request.user == self.get_object()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -57,25 +50,27 @@ class ChangeUserPage(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
         context["button_text"] = _("Change")
         return context
 
+    def handle_no_permission(self):
+        messages.error(self.request, _("You do not have permission to change another user"))
+        return redirect("/users/")
 
-class DeleteUserPage(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+
+class DeleteUserPage(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, DeleteView):
     model = User
     template_name = "delete.html"
     success_url = reverse_lazy("users:list")
     success_message = _("User deleted successfully")
 
     def test_func(self):
-        return self.kwargs['pk'] == self.get_object().pk
-
-    def form_valid(self, form):
-        if self.get_object() != self.request.user:
-            messages.error(self.request, _("You do not have permission to change another user"))
-        else:
-            super(DeleteUserPage, self).form_valid(form)
-        return redirect(self.success_url)
+        return self.request.user == self.get_object()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = _("Delete user")
         context["button_text"] = _("Yes, delete")
         return context
+
+    def handle_no_permission(self):
+        messages.error(self.request, _("You do not have permission to change another user"))
+        return redirect("/users/")
+
