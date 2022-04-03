@@ -1,19 +1,20 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 from task_manager.constants import DESCRIPTION, LOGIN_TEST, NAME, TASKS_TEST
 from task_manager.labels.constants import LABELS
 from task_manager.labels.models import Label
 from task_manager.statuses.constants import STATUS
 from task_manager.statuses.models import Status
-from task_manager.tasks.constants import (
-    AUTHOR,
+from task_manager.tasks.translations import (
     BY_ITS_AUTHOR,
-    EXECUTOR,
     TASK_CHANGED_SUCCESSFULLY,
     TASK_CREATED_SUCCESSFULLY,
     TASK_DELETED_SUCCESSFULLY,
+)
+from task_manager.tasks.constants import (
+    AUTHOR,
+    EXECUTOR,
     TASKS,
     TASKS_CHANGE,
     TASKS_CREATE,
@@ -71,7 +72,7 @@ class TestTasks(TestCase):
             follow=True,
         )
         self.assertRedirects(response, TASKS_TEST)
-        self.assertContains(response, _(TASK_CREATED_SUCCESSFULLY))
+        self.assertContains(response, TASK_CREATED_SUCCESSFULLY)
         created_task = Task.objects.get(name=self.task[NAME])
         self.assertEquals(created_task.name, "task3")
 
@@ -88,7 +89,7 @@ class TestTasks(TestCase):
         }
         response = self.client.post(url, changed_task, follow=True)
         self.assertRedirects(response, TASKS_TEST)
-        self.assertContains(response, _(TASK_CHANGED_SUCCESSFULLY))
+        self.assertContains(response, TASK_CHANGED_SUCCESSFULLY)
         self.assertEqual(Task.objects.get(pk=self.task1.pk), self.task1)
 
     def test_delete_task(self):
@@ -99,7 +100,7 @@ class TestTasks(TestCase):
         with self.assertRaises(Task.DoesNotExist):
             Task.objects.get(pk=self.task1.pk)
         self.assertRedirects(response, TASKS_TEST)
-        self.assertContains(response, _(TASK_DELETED_SUCCESSFULLY))
+        self.assertContains(response, TASK_DELETED_SUCCESSFULLY)
 
     def test_delete_task_not_author(self):
         self.client.force_login(self.user1)
@@ -107,7 +108,7 @@ class TestTasks(TestCase):
         response = self.client.post(url, follow=True)
         self.assertTrue(Task.objects.filter(pk=self.task2.pk).exists())
         self.assertRedirects(response, TASKS_TEST)
-        self.assertContains(response, _(BY_ITS_AUTHOR))
+        self.assertContains(response, BY_ITS_AUTHOR)
 
     def test_filter_self_tasks(self):
         self.client.force_login(self.user1)

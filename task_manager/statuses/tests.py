@@ -1,14 +1,15 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 from task_manager.constants import LOGIN_TEST, NAME, STATUSES_TEST
 from task_manager.labels.models import Label
-from task_manager.statuses.constants import (
+from task_manager.statuses.translations import (
     STATUS_CHANGED_SUCCESSFULLY,
     STATUS_CREATED_SUCCESSFULLY,
     STATUS_DELETED_SUCCESSFULLY,
     STATUS_IN_USE,
+)
+from task_manager.statuses.constants import (
     STATUSES,
     STATUSES_CHANGE,
     STATUSES_CREATE,
@@ -53,7 +54,7 @@ class TestStatuses(TestCase):
             follow=True,
         )
         self.assertRedirects(response, STATUSES_TEST)
-        self.assertContains(response, _(STATUS_CREATED_SUCCESSFULLY))
+        self.assertContains(response, STATUS_CREATED_SUCCESSFULLY)
         created_status = Status.objects.get(name=status[NAME])
         self.assertEquals(created_status.name, "status3")
 
@@ -63,7 +64,7 @@ class TestStatuses(TestCase):
         new_status = {NAME: "status4"}
         response = self.client.post(url, new_status, follow=True)
         self.assertRedirects(response, STATUSES_TEST)
-        self.assertContains(response, _(STATUS_CHANGED_SUCCESSFULLY))
+        self.assertContains(response, STATUS_CHANGED_SUCCESSFULLY)
         self.assertEqual(Status.objects.get(pk=self.status1.id), self.status1)
 
     def test_status_with_tasks_delete(self):
@@ -72,7 +73,7 @@ class TestStatuses(TestCase):
         response = self.client.post(url, follow=True)
         self.assertTrue(Status.objects.filter(pk=self.status1.id).exists())
         self.assertRedirects(response, STATUSES_TEST)
-        self.assertContains(response, _(STATUS_IN_USE))
+        self.assertContains(response, STATUS_IN_USE)
 
     def test_delete_status(self):
         self.client.force_login(self.user)
@@ -83,4 +84,4 @@ class TestStatuses(TestCase):
         with self.assertRaises(Status.DoesNotExist):
             Status.objects.get(pk=self.status1.pk)
         self.assertRedirects(response, STATUSES_TEST)
-        self.assertContains(response, _(STATUS_DELETED_SUCCESSFULLY))
+        self.assertContains(response, STATUS_DELETED_SUCCESSFULLY)

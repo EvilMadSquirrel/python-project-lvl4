@@ -30,7 +30,8 @@ class TasksFilter(django_filters.FilterSet):
         named=True,
     ).all()
     executor = django_filters.filters.ChoiceFilter(
-        label=_("Executor"), choices=all_executors,
+        label=_("Executor"),
+        choices=all_executors,
     )
     self_task = django_filters.filters.BooleanFilter(
         label=_("Only my tasks"),

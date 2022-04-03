@@ -1,12 +1,13 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
-from task_manager.constants import LABELS_TEST, LOGIN_TEST, NAME
-from task_manager.labels.constants import (
+from task_manager.constants import NAME, LABELS_TEST, LOGIN_TEST
+from task_manager.labels.translations import (
     LABEL_CHANGED_SUCCESSFULLY,
     LABEL_CREATED_SUCCESSFULLY,
     LABEL_DELETED_SUCCESSFULLY,
     LABEL_IN_USE,
+)
+from task_manager.labels.constants import (
     LABELS,
     LABELS_CHANGE,
     LABELS_CREATE,
@@ -62,7 +63,7 @@ class TestLabels(TestCase):
         label = {NAME: "label6"}
         response = self.client.post(reverse(LABELS_CREATE), label, follow=True)
         self.assertRedirects(response, LABELS_TEST)
-        self.assertContains(response, _(LABEL_CREATED_SUCCESSFULLY))
+        self.assertContains(response, LABEL_CREATED_SUCCESSFULLY)
         created_label = Label.objects.get(name=label[NAME])
         self.assertEquals(created_label.name, "label6")
 
@@ -72,7 +73,7 @@ class TestLabels(TestCase):
         new_label = {NAME: "changed"}
         response = self.client.post(url, new_label, follow=True)
         self.assertRedirects(response, LABELS_TEST)
-        self.assertContains(response, _(LABEL_CHANGED_SUCCESSFULLY))
+        self.assertContains(response, LABEL_CHANGED_SUCCESSFULLY)
         self.assertEqual(Label.objects.get(pk=self.label1.id), self.label1)
 
     def test_label_with_tasks_delete(self):
@@ -81,7 +82,7 @@ class TestLabels(TestCase):
         response = self.client.post(url, follow=True)
         self.assertTrue(Label.objects.filter(pk=self.label1.id).exists())
         self.assertRedirects(response, LABELS_TEST)
-        self.assertContains(response, _(LABEL_IN_USE))
+        self.assertContains(response, LABEL_IN_USE)
 
     def test_delete_status(self):
         self.client.login(username=TESTUSER, password=PASSWORD)
@@ -92,4 +93,4 @@ class TestLabels(TestCase):
         with self.assertRaises(Label.DoesNotExist):
             Label.objects.get(pk=self.label1.pk)
         self.assertRedirects(response, LABELS_TEST)
-        self.assertContains(response, _(LABEL_DELETED_SUCCESSFULLY))
+        self.assertContains(response, LABEL_DELETED_SUCCESSFULLY)

@@ -4,19 +4,16 @@ from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, UpdateView
 from django_filters.views import FilterView
-from task_manager.constants import (
-    BUTTON_TEXT,
+from task_manager.translations import (
     CHANGE_TITLE,
     CREATE_TITLE,
     DELETE_BUTTON,
-    LOGIN,
     NOT_AUTHORIZED,
-    TITLE,
 )
-from task_manager.tasks.constants import (
+from task_manager.constants import BUTTON_TEXT, LOGIN, TITLE
+from task_manager.tasks.translations import (
     BY_ITS_AUTHOR,
     CHANGE_TASK,
     CREATE_TASK,
@@ -25,10 +22,9 @@ from task_manager.tasks.constants import (
     TASK_CHANGED_SUCCESSFULLY,
     TASK_CREATED_SUCCESSFULLY,
     TASK_DELETED_SUCCESSFULLY,
-    TASKS,
-    TASKS_LIST,
     TASKS_TITLE,
 )
+from task_manager.tasks.constants import TASKS, TASKS_LIST
 from task_manager.tasks.forms import TaskForm, TasksFilter
 from task_manager.tasks.models import Task
 
@@ -41,12 +37,12 @@ class TasksListPage(LoginRequiredMixin, FilterView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context[TITLE] = _(TASKS_TITLE)
-        context[BUTTON_TEXT] = _(SHOW_TITLE)
+        context[TITLE] = TASKS_TITLE
+        context[BUTTON_TEXT] = SHOW_TITLE
         return context
 
     def handle_no_permission(self):
-        messages.error(self.request, _(NOT_AUTHORIZED))
+        messages.error(self.request, NOT_AUTHORIZED)
         return redirect(LOGIN)
 
 
@@ -55,7 +51,7 @@ class CreateTaskPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = TaskForm
     template_name = "form.html"
     success_url = reverse_lazy(TASKS_LIST)
-    success_message = _(TASK_CREATED_SUCCESSFULLY)
+    success_message = TASK_CREATED_SUCCESSFULLY
 
     def form_valid(self, form):
         form.instance.author = User.objects.get(pk=self.request.user.pk)
@@ -63,12 +59,12 @@ class CreateTaskPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context[TITLE] = _(CREATE_TASK)
-        context[BUTTON_TEXT] = _(CREATE_TITLE)
+        context[TITLE] = CREATE_TASK
+        context[BUTTON_TEXT] = CREATE_TITLE
         return context
 
     def handle_no_permission(self):
-        messages.error(self.request, _(NOT_AUTHORIZED))
+        messages.error(self.request, NOT_AUTHORIZED)
         return redirect(LOGIN)
 
 
@@ -77,16 +73,16 @@ class ChangeTaskPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = TaskForm
     template_name = "form.html"
     success_url = reverse_lazy(TASKS_LIST)
-    success_message = _(TASK_CHANGED_SUCCESSFULLY)
+    success_message = TASK_CHANGED_SUCCESSFULLY
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context[TITLE] = _(CHANGE_TASK)
-        context[BUTTON_TEXT] = _(CHANGE_TITLE)
+        context[TITLE] = CHANGE_TASK
+        context[BUTTON_TEXT] = CHANGE_TITLE
         return context
 
     def handle_no_permission(self):
-        messages.error(self.request, _(NOT_AUTHORIZED))
+        messages.error(self.request, NOT_AUTHORIZED)
         return redirect(LOGIN)
 
 
@@ -94,21 +90,21 @@ class DeleteTaskPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Task
     template_name = "delete.html"
     success_url = reverse_lazy(TASKS_LIST)
-    success_message = _(TASK_DELETED_SUCCESSFULLY)
+    success_message = TASK_DELETED_SUCCESSFULLY
 
     def form_valid(self, form):
         if self.request.user == self.get_object().author:
             super(DeleteTaskPage, self).form_valid(form)
         else:
-            messages.error(self.request, _(BY_ITS_AUTHOR))
+            messages.error(self.request, BY_ITS_AUTHOR)
         return redirect(self.success_url)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context[TITLE] = _(DELETE_TASK)
-        context[BUTTON_TEXT] = _(DELETE_BUTTON)
+        context[TITLE] = DELETE_TASK
+        context[BUTTON_TEXT] = DELETE_BUTTON
         return context
 
     def handle_no_permission(self):
-        messages.error(self.request, _(NOT_AUTHORIZED))
+        messages.error(self.request, NOT_AUTHORIZED)
         return redirect(LOGIN)

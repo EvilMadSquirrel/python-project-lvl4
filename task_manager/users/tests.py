@@ -1,19 +1,20 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 from task_manager.constants import LOGIN_TEST
 from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
+from task_manager.users.translations import (
+    USER_CHANGED_SUCCESSFULLY,
+    USER_CREATED_SUCCESSFULLY,
+    USER_DELETED_SUCCESSFULLY,
+)
 from task_manager.users.constants import (
     FIRST_NAME,
     LAST_NAME,
     PASSWORD1,
     PASSWORD2,
-    USER_CHANGED_SUCCESSFULLY,
-    USER_CREATED_SUCCESSFULLY,
-    USER_DELETED_SUCCESSFULLY,
     USERNAME,
     USERS,
     USERS_CHANGE,
@@ -71,7 +72,7 @@ class TestUsers(TestCase):
 
         self.assertRedirects(response, LOGIN_TEST)
 
-        self.assertContains(response, _(USER_CREATED_SUCCESSFULLY))
+        self.assertContains(response, USER_CREATED_SUCCESSFULLY)
         created_user = User.objects.get(username=new_user[USERNAME])
         self.assertTrue(created_user.check_password("123"))
 
@@ -89,7 +90,7 @@ class TestUsers(TestCase):
 
         response = self.client.post(path=url, data=new_data, follow=True)
         self.assertRedirects(response, USERS_TEST)
-        self.assertContains(response, _(USER_CHANGED_SUCCESSFULLY))
+        self.assertContains(response, USER_CHANGED_SUCCESSFULLY)
         changed_user = User.objects.get(username=user.username)
         self.assertTrue(changed_user.check_password("345"))
 
@@ -104,4 +105,4 @@ class TestUsers(TestCase):
             User.objects.get(pk=self.user1.id)
 
         self.assertRedirects(response, USERS_TEST)
-        self.assertContains(response, _(USER_DELETED_SUCCESSFULLY))
+        self.assertContains(response, USER_DELETED_SUCCESSFULLY)
