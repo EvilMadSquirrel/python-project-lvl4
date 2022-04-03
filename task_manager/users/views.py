@@ -1,32 +1,33 @@
 from django.contrib import messages
-from django.shortcuts import redirect
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-
-from task_manager.users.forms import CreateUserForm
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from task_manager.constants import (
-    USERS,
-    TITLE,
-    LOGIN,
-    USER_CREATED_SUCCESSFULLY,
-    USER_CHANGED_SUCCESSFULLY,
-    NOT_CHANGE_ANOTHER_USER,
-    USER_IN_USE,
-    USER_DELETED_SUCCESSFULLY,
-    USERS_TITLE,
-    CHANGE_TITLE,
     BUTTON_TEXT,
+    CHANGE_TITLE,
     DELETE_BUTTON,
-    USERS_LIST,
-    REGISTER,
-    DELETE_USER,
+    LOGIN,
+    TITLE,
+)
+from task_manager.users.constants import (
     CHANGE_USER,
     CREATE_USER,
+    DELETE_USER,
+    NOT_CHANGE_ANOTHER_USER,
+    REGISTER,
+    USER_CHANGED_SUCCESSFULLY,
+    USER_CREATED_SUCCESSFULLY,
+    USER_DELETED_SUCCESSFULLY,
+    USER_IN_USE,
+    USERS,
+    USERS_LIST,
+    USERS_TITLE,
 )
+from task_manager.users.forms import CreateUserForm
 
 
 class UsersListPage(ListView):
@@ -54,7 +55,10 @@ class CreateUserPage(SuccessMessageMixin, CreateView):
 
 
 class ChangeUserPage(
-    LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, UpdateView
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    UserPassesTestMixin,
+    UpdateView,
 ):
     model = User
     template_name = "form.html"
@@ -77,7 +81,10 @@ class ChangeUserPage(
 
 
 class DeleteUserPage(
-    LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, DeleteView
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    UserPassesTestMixin,
+    DeleteView,
 ):
     model = User
     template_name = "delete.html"
@@ -94,7 +101,7 @@ class DeleteUserPage(
         return context
 
     def form_valid(self, form):
-        if self.get_object().tasks.all() or self.get_object().tasks_in_work.all():
+        if self.get_object().tasks.all() or self.get_object().works.all():
             messages.error(self.request, _(USER_IN_USE))
         else:
             super(DeleteUserPage, self).form_valid(form)

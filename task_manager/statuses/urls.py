@@ -1,20 +1,19 @@
 from django.urls import path
-
 from task_manager.constants import (
-    DELETE_URL,
-    UPDATE_URL,
-    CREATE_URL,
-    STATUSES,
-    LIST,
-    CREATE,
     CHANGE,
+    CREATE,
+    CREATE_URL,
     DELETE,
+    DELETE_URL,
+    LIST,
+    UPDATE_URL,
 )
+from task_manager.statuses.constants import STATUSES
 from task_manager.statuses.views import (
-    StatusesListPage,
     ChangeStatusPage,
     CreateStatusPage,
     DeleteStatusPage,
+    StatusesListPage,
 )
 
 app_name = STATUSES

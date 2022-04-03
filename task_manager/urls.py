@@ -1,18 +1,17 @@
 from django.contrib import admin
 from django.urls import include, path
-
 from task_manager.constants import (
     ADMIN_URL,
-    LABELS_URL,
-    TASKS_URL,
-    STATUSES_URL,
-    USERS_URL,
-    LOGOUT_URL,
-    LOGIN_URL,
-    LOGIN,
-    LOGOUT,
     INDEX,
+    LOGIN,
+    LOGIN_URL,
+    LOGOUT,
+    LOGOUT_URL,
 )
+from task_manager.labels.constants import LABELS_URL
+from task_manager.statuses.constants import STATUSES_URL
+from task_manager.tasks.constants import TASKS_URL
+from task_manager.users.constants import USERS_URL
 from task_manager.views import IndexPage, LoginPage, LogoutPage
 
 urlpatterns = [

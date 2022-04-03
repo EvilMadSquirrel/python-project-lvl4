@@ -4,17 +4,16 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
-
 from task_manager.constants import (
-    INDEX,
-    LOGIN,
-    TITLE,
     BUTTON_TEXT,
-    LOGIN_BUTTON,
-    LOGIN_TITLE,
+    INDEX,
     LOGGED_IN,
     LOGGED_OUT,
-    VALUE,
+    LOGIN,
+    LOGIN_BUTTON,
+    LOGIN_TITLE,
+    TITLE,
+    VALUE_STRING,
 )
 
 
@@ -31,7 +30,7 @@ class LoginPage(SuccessMessageMixin, LoginView):
         context = super().get_context_data(**kwargs)
         context[TITLE] = _(LOGIN_TITLE)
         context[BUTTON_TEXT] = _(LOGIN_BUTTON)
-        context[VALUE] = LOGIN
+        context[VALUE_STRING] = LOGIN
         return context
 
 

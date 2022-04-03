@@ -1,19 +1,19 @@
 from django.urls import path
 from task_manager.constants import (
-    DELETE_URL,
-    UPDATE_URL,
-    CREATE_URL,
-    LABELS,
-    LIST,
-    CREATE,
     CHANGE,
+    CREATE,
+    CREATE_URL,
     DELETE,
+    DELETE_URL,
+    LIST,
+    UPDATE_URL,
 )
+from task_manager.labels.constants import LABELS
 from task_manager.labels.views import (
-    LabelsListPage,
     ChangeLabelPage,
     CreateLabelPage,
     DeleteLabelPage,
+    LabelsListPage,
 )
 
 app_name = LABELS

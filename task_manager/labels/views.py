@@ -1,32 +1,33 @@
 from django.contrib import messages
-from django.shortcuts import redirect
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-
-from task_manager.labels.models import Label
-from task_manager.labels.forms import LabelForm
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from task_manager.constants import (
-    NOT_AUTHORIZED,
-    LABEL_IN_USE,
-    DELETE_BUTTON,
-    LABEL_DELETED_SUCCESSFULLY,
-    LABEL_CHANGED_SUCCESSFULLY,
-    LABEL_CREATED_SUCCESSFULLY,
+    BUTTON_TEXT,
     CHANGE_TITLE,
     CREATE_TITLE,
+    DELETE_BUTTON,
     LOGIN,
-    DELETE_LABEL,
-    CHANGE_LABEL,
-    CREATE_LABEL,
-    LABELS_LIST,
-    LABELS_TITLE,
-    LABELS,
-    BUTTON_TEXT,
+    NOT_AUTHORIZED,
     TITLE,
 )
+from task_manager.labels.constants import (
+    CHANGE_LABEL,
+    CREATE_LABEL,
+    DELETE_LABEL,
+    LABEL_CHANGED_SUCCESSFULLY,
+    LABEL_CREATED_SUCCESSFULLY,
+    LABEL_DELETED_SUCCESSFULLY,
+    LABEL_IN_USE,
+    LABELS,
+    LABELS_LIST,
+    LABELS_TITLE,
+)
+from task_manager.labels.forms import LabelForm
+from task_manager.labels.models import Label
 
 
 class LabelsListPage(LoginRequiredMixin, ListView):

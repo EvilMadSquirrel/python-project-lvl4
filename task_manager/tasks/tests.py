@@ -1,30 +1,28 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-
-from task_manager.tasks.models import Task
-from django.contrib.auth.models import User
-from task_manager.statuses.models import Status
+from task_manager.constants import DESCRIPTION, LOGIN_TEST, NAME, TASKS_TEST
+from task_manager.labels.constants import LABELS
 from task_manager.labels.models import Label
-from task_manager.constants import (
-    TASKS,
-    NAME,
-    DESCRIPTION,
-    STATUS,
+from task_manager.statuses.constants import STATUS
+from task_manager.statuses.models import Status
+from task_manager.tasks.constants import (
     AUTHOR,
-    EXECUTOR,
-    LABELS,
-    TASK_CREATED_SUCCESSFULLY,
-    TASK_CHANGED_SUCCESSFULLY,
-    TASK_DELETED_SUCCESSFULLY,
     BY_ITS_AUTHOR,
+    EXECUTOR,
+    TASK_CHANGED_SUCCESSFULLY,
+    TASK_CREATED_SUCCESSFULLY,
+    TASK_DELETED_SUCCESSFULLY,
+    TASKS,
     TASKS_CHANGE,
-    TASKS_DELETE,
     TASKS_CREATE,
+    TASKS_DELETE,
     TASKS_LIST,
-    LOGIN_TEST,
-    TASKS_TEST,
 )
+from task_manager.tasks.models import Task
+
+STATUS_OK = 200
 
 
 class TestTasks(TestCase):
@@ -57,7 +55,7 @@ class TestTasks(TestCase):
     def test_tasks_list(self):
         self.client.force_login(self.user1)
         response = self.client.get(reverse(TASKS_LIST))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, STATUS_OK)
         tasks_list = list(response.context[TASKS])
         self.assertQuerysetEqual(tasks_list, [self.task1, self.task2])
 
@@ -67,7 +65,11 @@ class TestTasks(TestCase):
 
     def test_create_task(self):
         self.client.force_login(self.user1)
-        response = self.client.post(reverse(TASKS_CREATE), self.task, follow=True)
+        response = self.client.post(
+            reverse(TASKS_CREATE),
+            self.task,
+            follow=True,
+        )
         self.assertRedirects(response, TASKS_TEST)
         self.assertContains(response, _(TASK_CREATED_SUCCESSFULLY))
         created_task = Task.objects.get(name=self.task[NAME])
@@ -111,21 +113,21 @@ class TestTasks(TestCase):
         self.client.force_login(self.user1)
         filtered_list = "{0}?self_task=on".format(reverse(TASKS_LIST))
         response = self.client.get(filtered_list)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, STATUS_OK)
         self.assertQuerysetEqual(list(response.context[TASKS]), [self.task1])
 
     def test_filter_by_status(self):
         self.client.force_login(self.user1)
         filtered_list = "{0}?status=2".format(reverse(TASKS_LIST))
         response = self.client.get(filtered_list)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, STATUS_OK)
         self.assertQuerysetEqual(list(response.context[TASKS]), [self.task2])
 
     def test_filter_by_executor(self):
         self.client.force_login(self.user1)
         filtered_list = "{0}?executor=2".format(reverse(TASKS_LIST))
         response = self.client.get(filtered_list)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, STATUS_OK)
         self.assertQuerysetEqual(list(response.context[TASKS]), [self.task1])
 
     def test_filter_by_label(self):
@@ -134,7 +136,8 @@ class TestTasks(TestCase):
         created_task = Task.objects.get(name=self.task[NAME])
         filtered_list = "{0}?labels=1".format(reverse(TASKS_LIST))
         response = self.client.get(filtered_list)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, STATUS_OK)
         self.assertQuerysetEqual(
-            list(response.context[TASKS]), [self.task1, created_task]
+            list(response.context[TASKS]),
+            [self.task1, created_task],
         )

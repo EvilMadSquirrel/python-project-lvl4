@@ -1,32 +1,33 @@
 from django.contrib import messages
-from django.shortcuts import redirect
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-
-from task_manager.statuses.models import Status
-from task_manager.statuses.forms import StatusForm
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from task_manager.constants import (
-    NOT_AUTHORIZED,
-    STATUSES_TITLE,
-    LOGIN,
-    STATUS_CREATED_SUCCESSFULLY,
-    STATUSES_LIST,
-    STATUS_IN_USE,
-    STATUS_DELETED_SUCCESSFULLY,
-    STATUS_CHANGED_SUCCESSFULLY,
+    BUTTON_TEXT,
     CHANGE_TITLE,
     CREATE_TITLE,
     DELETE_BUTTON,
-    DELETE_STATUS,
+    LOGIN,
+    NOT_AUTHORIZED,
+    TITLE,
+)
+from task_manager.statuses.constants import (
     CHANGE_STATUS,
     CREATE_STATUS,
+    DELETE_STATUS,
+    STATUS_CHANGED_SUCCESSFULLY,
+    STATUS_CREATED_SUCCESSFULLY,
+    STATUS_DELETED_SUCCESSFULLY,
+    STATUS_IN_USE,
     STATUSES,
-    TITLE,
-    BUTTON_TEXT,
+    STATUSES_LIST,
+    STATUSES_TITLE,
 )
+from task_manager.statuses.forms import StatusForm
+from task_manager.statuses.models import Status
 
 
 class StatusesListPage(LoginRequiredMixin, ListView):

@@ -1,12 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
-from task_manager.constants import (
-    PASSWORD_2,
-    PASSWORD_1,
-    USERNAME,
-    LAST_NAME,
+from task_manager.users.constants import (
     FIRST_NAME,
+    LAST_NAME,
+    PASSWORD1,
+    PASSWORD2,
+    USERNAME,
 )
 
 
@@ -17,6 +16,6 @@ class CreateUserForm(UserCreationForm):
             FIRST_NAME,
             LAST_NAME,
             USERNAME,
-            PASSWORD_1,
-            PASSWORD_2,
+            PASSWORD1,
+            PASSWORD2,
         ]

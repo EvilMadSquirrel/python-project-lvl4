@@ -1,25 +1,24 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-
-from django.contrib.auth.models import User
-from task_manager.tasks.models import Task
+from task_manager.constants import LOGIN_TEST, NAME, STATUSES_TEST
 from task_manager.labels.models import Label
-from task_manager.statuses.models import Status
-from task_manager.constants import (
-    STATUSES_DELETE,
+from task_manager.statuses.constants import (
+    STATUS_CHANGED_SUCCESSFULLY,
+    STATUS_CREATED_SUCCESSFULLY,
+    STATUS_DELETED_SUCCESSFULLY,
+    STATUS_IN_USE,
+    STATUSES,
     STATUSES_CHANGE,
     STATUSES_CREATE,
+    STATUSES_DELETE,
     STATUSES_LIST,
-    STATUS_CREATED_SUCCESSFULLY,
-    STATUS_CHANGED_SUCCESSFULLY,
-    STATUS_IN_USE,
-    STATUS_DELETED_SUCCESSFULLY,
-    STATUSES,
-    NAME,
-    STATUSES_TEST,
-    LOGIN_TEST,
 )
+from task_manager.statuses.models import Status
+from task_manager.tasks.models import Task
+
+STATUS_OK = 200
 
 
 class TestStatuses(TestCase):
@@ -37,7 +36,7 @@ class TestStatuses(TestCase):
     def test_statuses_list(self):
         self.client.force_login(self.user)
         response = self.client.get(reverse(STATUSES_LIST))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, STATUS_OK)
         statuses_list = list(response.context[STATUSES])
         self.assertQuerysetEqual(statuses_list, [self.status1, self.status2])
 
@@ -48,7 +47,11 @@ class TestStatuses(TestCase):
     def test_create_status(self):
         self.client.force_login(self.user)
         status = {NAME: "status3"}
-        response = self.client.post(reverse(STATUSES_CREATE), status, follow=True)
+        response = self.client.post(
+            reverse(STATUSES_CREATE),
+            status,
+            follow=True,
+        )
         self.assertRedirects(response, STATUSES_TEST)
         self.assertContains(response, _(STATUS_CREATED_SUCCESSFULLY))
         created_status = Status.objects.get(name=status[NAME])

@@ -1,5 +1,4 @@
 from django.db import models
-
 from task_manager.constants import NAME_MAX_LENGTH
 
 

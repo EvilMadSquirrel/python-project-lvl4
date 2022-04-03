@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Label
+from task_manager.labels.models import Label
 
 admin.site.register(Label)

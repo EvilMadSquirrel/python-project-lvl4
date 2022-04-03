@@ -1,35 +1,36 @@
 from django.contrib import messages
-from django.shortcuts import redirect
-from django.views.generic import CreateView, UpdateView, DeleteView
-from django_filters.views import FilterView
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-
-from django.contrib.auth.models import User
-
+from django.views.generic import CreateView, DeleteView, UpdateView
+from django_filters.views import FilterView
 from task_manager.constants import (
-    TASKS,
-    TITLE,
     BUTTON_TEXT,
-    DELETE_BUTTON,
-    NOT_AUTHORIZED,
-    TASK_CREATED_SUCCESSFULLY,
-    TASK_CHANGED_SUCCESSFULLY,
-    TASK_DELETED_SUCCESSFULLY,
-    BY_ITS_AUTHOR,
-    LOGIN,
-    TASKS_LIST,
     CHANGE_TITLE,
     CREATE_TITLE,
-    CREATE_TASK,
-    CHANGE_TASK,
-    DELETE_TASK,
-    TASKS_TITLE, SHOW_TITLE,
+    DELETE_BUTTON,
+    LOGIN,
+    NOT_AUTHORIZED,
+    TITLE,
 )
-from task_manager.tasks.models import Task
+from task_manager.tasks.constants import (
+    BY_ITS_AUTHOR,
+    CHANGE_TASK,
+    CREATE_TASK,
+    DELETE_TASK,
+    SHOW_TITLE,
+    TASK_CHANGED_SUCCESSFULLY,
+    TASK_CREATED_SUCCESSFULLY,
+    TASK_DELETED_SUCCESSFULLY,
+    TASKS,
+    TASKS_LIST,
+    TASKS_TITLE,
+)
 from task_manager.tasks.forms import TaskForm, TasksFilter
+from task_manager.tasks.models import Task
 
 
 class TasksListPage(LoginRequiredMixin, FilterView):
@@ -96,10 +97,10 @@ class DeleteTaskPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_message = _(TASK_DELETED_SUCCESSFULLY)
 
     def form_valid(self, form):
-        if self.get_object().author != self.request.user:
-            messages.error(self.request, _(BY_ITS_AUTHOR))
-        else:
+        if self.request.user == self.get_object().author:
             super(DeleteTaskPage, self).form_valid(form)
+        else:
+            messages.error(self.request, _(BY_ITS_AUTHOR))
         return redirect(self.success_url)
 
     def get_context_data(self, **kwargs):

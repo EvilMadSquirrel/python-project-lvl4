@@ -1,24 +1,26 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-
-from task_manager.constants import (
-    LABELS,
-    LABELS_LIST,
-    LABEL_DELETED_SUCCESSFULLY,
-    LABEL_IN_USE,
+from task_manager.constants import LABELS_TEST, LOGIN_TEST, NAME
+from task_manager.labels.constants import (
     LABEL_CHANGED_SUCCESSFULLY,
     LABEL_CREATED_SUCCESSFULLY,
-    LABELS_CREATE,
+    LABEL_DELETED_SUCCESSFULLY,
+    LABEL_IN_USE,
+    LABELS,
     LABELS_CHANGE,
+    LABELS_CREATE,
     LABELS_DELETE,
-    NAME,
-    LABELS_TEST,
-    LOGIN_TEST,
+    LABELS_LIST,
 )
 from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
+
+STATUS_OK = 200
+
+PASSWORD = "111"
+TESTUSER = "testuser1"
 
 
 class TestLabels(TestCase):
@@ -36,9 +38,9 @@ class TestLabels(TestCase):
         self.task1 = Task.objects.get(pk=1)
 
     def test_labels_list(self):
-        self.client.login(username="testuser1", password="111")
+        self.client.login(username=TESTUSER, password=PASSWORD)
         response = self.client.get(reverse(LABELS_LIST))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, STATUS_OK)
         labels_list = list(response.context[LABELS])
         self.assertQuerysetEqual(
             labels_list,
@@ -56,7 +58,7 @@ class TestLabels(TestCase):
         self.assertRedirects(response, LOGIN_TEST)
 
     def test_create_label(self):
-        self.client.login(username="testuser1", password="111")
+        self.client.login(username=TESTUSER, password=PASSWORD)
         label = {NAME: "label6"}
         response = self.client.post(reverse(LABELS_CREATE), label, follow=True)
         self.assertRedirects(response, LABELS_TEST)
@@ -65,7 +67,7 @@ class TestLabels(TestCase):
         self.assertEquals(created_label.name, "label6")
 
     def test_change_label(self):
-        self.client.login(username="testuser1", password="111")
+        self.client.login(username=TESTUSER, password=PASSWORD)
         url = reverse(LABELS_CHANGE, args=(self.label1.pk,))
         new_label = {NAME: "changed"}
         response = self.client.post(url, new_label, follow=True)
@@ -74,7 +76,7 @@ class TestLabels(TestCase):
         self.assertEqual(Label.objects.get(pk=self.label1.id), self.label1)
 
     def test_label_with_tasks_delete(self):
-        self.client.login(username="testuser1", password="111")
+        self.client.login(username=TESTUSER, password=PASSWORD)
         url = reverse(LABELS_DELETE, args=(self.label1.pk,))
         response = self.client.post(url, follow=True)
         self.assertTrue(Label.objects.filter(pk=self.label1.id).exists())
@@ -82,7 +84,7 @@ class TestLabels(TestCase):
         self.assertContains(response, _(LABEL_IN_USE))
 
     def test_delete_status(self):
-        self.client.login(username="testuser1", password="111")
+        self.client.login(username=TESTUSER, password=PASSWORD)
         Task.objects.all().delete()
         url = reverse(LABELS_DELETE, args=(self.label1.pk,))
         response = self.client.post(url, follow=True)

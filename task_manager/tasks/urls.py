@@ -1,20 +1,19 @@
 from django.urls import path
-
-from task_manager.tasks.views import (
-    TasksListPage,
-    CreateTaskPage,
-    ChangeTaskPage,
-    DeleteTaskPage,
-)
 from task_manager.constants import (
-    TASKS,
+    CHANGE,
+    CREATE,
     CREATE_URL,
-    UPDATE_URL,
+    DELETE,
     DELETE_URL,
     LIST,
-    CREATE,
-    CHANGE,
-    DELETE,
+    UPDATE_URL,
+)
+from task_manager.tasks.constants import TASKS
+from task_manager.tasks.views import (
+    ChangeTaskPage,
+    CreateTaskPage,
+    DeleteTaskPage,
+    TasksListPage,
 )
 
 app_name = TASKS

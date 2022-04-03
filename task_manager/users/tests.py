@@ -1,30 +1,29 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-
-from django.contrib.auth.models import User
-
-from task_manager.constants import (
-    USERNAME,
+from task_manager.constants import LOGIN_TEST
+from task_manager.labels.models import Label
+from task_manager.statuses.models import Status
+from task_manager.tasks.models import Task
+from task_manager.users.constants import (
     FIRST_NAME,
     LAST_NAME,
-    PASSWORD_1,
-    PASSWORD_2,
-    LOGIN,
-    USER_CREATED_SUCCESSFULLY,
+    PASSWORD1,
+    PASSWORD2,
     USER_CHANGED_SUCCESSFULLY,
+    USER_CREATED_SUCCESSFULLY,
     USER_DELETED_SUCCESSFULLY,
-    USERS_DELETE,
+    USERNAME,
+    USERS,
     USERS_CHANGE,
     USERS_CREATE,
-    USERS,
+    USERS_DELETE,
     USERS_LIST,
     USERS_TEST,
-    LOGIN_TEST,
 )
-from task_manager.tasks.models import Task
-from task_manager.statuses.models import Status
-from task_manager.labels.models import Label
+
+STATUS_OK = 200
 
 
 class TestUsers(TestCase):
@@ -51,7 +50,7 @@ class TestUsers(TestCase):
         users_list = list(response.context[USERS])
         test_user1, test_user2 = users_list
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, STATUS_OK)
         self.assertEqual(test_user1.username, "testuser1")
         self.assertEqual(test_user2.first_name, "Test2")
 
@@ -61,8 +60,8 @@ class TestUsers(TestCase):
             USERNAME: "createdUser",
             FIRST_NAME: "createdFirst",
             LAST_NAME: "createdLast",
-            PASSWORD_1: "123",
-            PASSWORD_2: "123",
+            PASSWORD1: "123",
+            PASSWORD2: "123",
         }
         response = self.client.post(
             url,
@@ -84,8 +83,8 @@ class TestUsers(TestCase):
             USERNAME: user.username,
             FIRST_NAME: user.first_name,
             LAST_NAME: user.last_name,
-            PASSWORD_1: "345",
-            PASSWORD_2: "345",
+            PASSWORD1: "345",
+            PASSWORD2: "345",
         }
 
         response = self.client.post(path=url, data=new_data, follow=True)
