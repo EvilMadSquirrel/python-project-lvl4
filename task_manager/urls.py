@@ -1,30 +1,27 @@
-"""task_manager URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 
-from .views import IndexPage, LoginPage, LogoutPage
+from task_manager.constants import (
+    ADMIN_URL,
+    LABELS_URL,
+    TASKS_URL,
+    STATUSES_URL,
+    USERS_URL,
+    LOGOUT_URL,
+    LOGIN_URL,
+    LOGIN,
+    LOGOUT,
+    INDEX,
+)
+from task_manager.views import IndexPage, LoginPage, LogoutPage
 
 urlpatterns = [
-    path("", IndexPage.as_view(), name="index"),
-    path("login/", LoginPage.as_view(), name="login"),
-    path("logout/", LogoutPage.as_view(), name="logout"),
-    path("users/", include("task_manager.users.urls")),
-    path("statuses/", include("task_manager.statuses.urls")),
-    path("tasks/", include("task_manager.tasks.urls")),
-    path("labels/", include("task_manager.labels.urls")),
-    path("admin/", admin.site.urls),
+    path("", IndexPage.as_view(), name=INDEX),
+    path(LOGIN_URL, LoginPage.as_view(), name=LOGIN),
+    path(LOGOUT_URL, LogoutPage.as_view(), name=LOGOUT),
+    path(USERS_URL, include("task_manager.users.urls")),
+    path(STATUSES_URL, include("task_manager.statuses.urls")),
+    path(TASKS_URL, include("task_manager.tasks.urls")),
+    path(LABELS_URL, include("task_manager.labels.urls")),
+    path(ADMIN_URL, admin.site.urls),
 ]

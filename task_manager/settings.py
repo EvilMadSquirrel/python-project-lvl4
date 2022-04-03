@@ -11,13 +11,15 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+import types
 from pathlib import Path
-from dotenv import load_dotenv
+
 import dj_database_url
 import rollbar
-
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+CONN_MAX_AGE = 600
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 
@@ -31,17 +33,16 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
+ALLOWED_HOSTS = (
     "evilmadsquirrel-task-manager.herokuapp.com",
     "localhost",
     "127.0.0.1",
     "webserver",
-]
-
+)
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS = (
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -54,9 +55,9 @@ INSTALLED_APPS = [
     "task_manager.tasks",
     "task_manager.labels",
     "django_filters",
-]
+)
 
-MIDDLEWARE = [
+MIDDLEWARE = (
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -67,19 +68,19 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "rollbar.contrib.django.middleware.RollbarNotifierMiddleware",
-]
+)
 
-ROLLBAR = {
+ROLLBAR = types.MappingProxyType({
     'access_token': os.getenv("ACCESS_TOKEN"),
     'environment': 'development' if DEBUG else 'production',
     'root': BASE_DIR,
-}
+})
 
 rollbar.init(**ROLLBAR)
 
 ROOT_URLCONF = "task_manager.urls"
 
-TEMPLATES = [
+TEMPLATES = (
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [os.path.join(BASE_DIR, "templates")],
@@ -93,43 +94,35 @@ TEMPLATES = [
             ],
         },
     },
-]
+)
 
 WSGI_APPLICATION = "task_manager.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-DATABASES = {
+DATABASES = types.MappingProxyType({
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+    },
+})
 if not DEBUG:
-    DATABASES["default"] = dj_database_url.config(conn_max_age=600)
+    DATABASES["default"] = dj_database_url.config(conn_max_age=CONN_MAX_AGE)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
+AUTH_PASSWORD_VALIDATORS = (
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa: E501
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",  # noqa: E501
         "OPTIONS": {
             "min_length": 3,
         },
     },
-    # {
-    #     "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    # },
-    # {
-    #     "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    # },
-]
-
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -147,9 +140,9 @@ LANGUAGES = (
     ("ru", "Russian"),
 )
 
-LOCALE_PATHS = [
+LOCALE_PATHS = (
     BASE_DIR / "locale/",
-]
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

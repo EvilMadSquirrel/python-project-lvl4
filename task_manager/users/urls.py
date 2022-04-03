@@ -1,11 +1,26 @@
 from django.urls import path
 
-from .views import UsersListPage, CreateUserPage, ChangeUserPage, DeleteUserPage
+from task_manager.constants import (
+    USERS,
+    LIST,
+    CREATE_URL,
+    UPDATE_URL,
+    DELETE_URL,
+    CREATE,
+    CHANGE,
+    DELETE,
+)
+from task_manager.users.views import (
+    UsersListPage,
+    CreateUserPage,
+    ChangeUserPage,
+    DeleteUserPage,
+)
 
-app_name = "users"
+app_name = USERS
 urlpatterns = [
-    path("", UsersListPage.as_view(), name="list"),
-    path("create/", CreateUserPage.as_view(), name="create"),
-    path("<int:pk>/update/", ChangeUserPage.as_view(), name="change"),
-    path("<int:pk>/delete/", DeleteUserPage.as_view(), name="delete"),
+    path("", UsersListPage.as_view(), name=LIST),
+    path(CREATE_URL, CreateUserPage.as_view(), name=CREATE),
+    path(UPDATE_URL, ChangeUserPage.as_view(), name=CHANGE),
+    path(DELETE_URL, DeleteUserPage.as_view(), name=DELETE),
 ]

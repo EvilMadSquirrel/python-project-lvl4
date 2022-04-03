@@ -3,6 +3,25 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from django.contrib.auth.models import User
+
+from task_manager.constants import (
+    USERNAME,
+    FIRST_NAME,
+    LAST_NAME,
+    PASSWORD_1,
+    PASSWORD_2,
+    LOGIN,
+    USER_CREATED_SUCCESSFULLY,
+    USER_CHANGED_SUCCESSFULLY,
+    USER_DELETED_SUCCESSFULLY,
+    USERS_DELETE,
+    USERS_CHANGE,
+    USERS_CREATE,
+    USERS,
+    USERS_LIST,
+    USERS_TEST,
+    LOGIN_TEST,
+)
 from task_manager.tasks.models import Task
 from task_manager.statuses.models import Status
 from task_manager.labels.models import Label
@@ -28,8 +47,8 @@ class TestUsers(TestCase):
         self.task2 = Task.objects.get(pk=2)
 
     def test_users_list(self):
-        response = self.client.get(reverse("users:list"))
-        users_list = list(response.context["users"])
+        response = self.client.get(reverse(USERS_LIST))
+        users_list = list(response.context[USERS])
         test_user1, test_user2 = users_list
 
         self.assertEqual(response.status_code, 200)
@@ -37,13 +56,13 @@ class TestUsers(TestCase):
         self.assertEqual(test_user2.first_name, "Test2")
 
     def test_user_create(self):
-        url = reverse("users:create")
+        url = reverse(USERS_CREATE)
         new_user = {
-            "username": "createdUser",
-            "first_name": "createdFirst",
-            "last_name": "createdLast",
-            "password1": "123",
-            "password2": "123",
+            USERNAME: "createdUser",
+            FIRST_NAME: "createdFirst",
+            LAST_NAME: "createdLast",
+            PASSWORD_1: "123",
+            PASSWORD_2: "123",
         }
         response = self.client.post(
             url,
@@ -51,39 +70,39 @@ class TestUsers(TestCase):
             follow=True,
         )
 
-        self.assertRedirects(response, "/login/")
+        self.assertRedirects(response, LOGIN_TEST)
 
-        self.assertContains(response, _("User created successfully"))
-        created_user = User.objects.get(username=new_user["username"])
+        self.assertContains(response, _(USER_CREATED_SUCCESSFULLY))
+        created_user = User.objects.get(username=new_user[USERNAME])
         self.assertTrue(created_user.check_password("123"))
 
     def test_user_update(self):
         user = self.user1
         self.client.force_login(user)
-        url = reverse("users:change", args=(user.id,))
+        url = reverse(USERS_CHANGE, args=(user.id,))
         new_data = {
-            "username": user.username,
-            "first_name": user.first_name,
-            "last_name": user.last_name,
-            "password1": "345",
-            "password2": "345",
+            USERNAME: user.username,
+            FIRST_NAME: user.first_name,
+            LAST_NAME: user.last_name,
+            PASSWORD_1: "345",
+            PASSWORD_2: "345",
         }
 
         response = self.client.post(path=url, data=new_data, follow=True)
-        self.assertRedirects(response, "/users/")
-        self.assertContains(response, _("User changed successfully"))
+        self.assertRedirects(response, USERS_TEST)
+        self.assertContains(response, _(USER_CHANGED_SUCCESSFULLY))
         changed_user = User.objects.get(username=user.username)
         self.assertTrue(changed_user.check_password("345"))
 
     def test_user_delete(self):
         Task.objects.all().delete()
         self.client.force_login(self.user1)
-        url = reverse("users:delete", args=(self.user1.id,))
+        url = reverse(USERS_DELETE, args=(self.user1.id,))
         response = self.client.post(url, follow=True)
 
         # noinspection PyTypeChecker
         with self.assertRaises(User.DoesNotExist):
             User.objects.get(pk=self.user1.id)
 
-        self.assertRedirects(response, "/users/")
-        self.assertContains(response, _("User deleted successfully"))
+        self.assertRedirects(response, USERS_TEST)
+        self.assertContains(response, _(USER_DELETED_SUCCESSFULLY))

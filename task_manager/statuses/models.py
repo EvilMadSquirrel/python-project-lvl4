@@ -1,8 +1,10 @@
 from django.db import models
 
+from task_manager.constants import NAME_MAX_LENGTH, STATUSES_TITLE
+
 
 class Status(models.Model):
-    name = models.CharField(max_length=200, null=False)
+    name = models.CharField(max_length=NAME_MAX_LENGTH, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -10,4 +12,4 @@ class Status(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = "Statuses"
+        verbose_name_plural = STATUSES_TITLE

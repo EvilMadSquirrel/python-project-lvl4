@@ -1,16 +1,25 @@
 from django.urls import path
-
-from .views import (
+from task_manager.constants import (
+    DELETE_URL,
+    UPDATE_URL,
+    CREATE_URL,
+    LABELS,
+    LIST,
+    CREATE,
+    CHANGE,
+    DELETE,
+)
+from task_manager.labels.views import (
     LabelsListPage,
     ChangeLabelPage,
     CreateLabelPage,
     DeleteLabelPage,
 )
 
-app_name = "labels"
+app_name = LABELS
 urlpatterns = [
-    path("", LabelsListPage.as_view(), name="list"),
-    path("create/", CreateLabelPage.as_view(), name="create"),
-    path("<int:pk>/update/", ChangeLabelPage.as_view(), name="change"),
-    path("<int:pk>/delete/", DeleteLabelPage.as_view(), name="delete"),
+    path("", LabelsListPage.as_view(), name=LIST),
+    path(CREATE_URL, CreateLabelPage.as_view(), name=CREATE),
+    path(UPDATE_URL, ChangeLabelPage.as_view(), name=CHANGE),
+    path(DELETE_URL, DeleteLabelPage.as_view(), name=DELETE),
 ]
