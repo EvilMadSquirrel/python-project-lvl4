@@ -5,11 +5,10 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
-from task_manager.translations import (
-    CHANGE_TITLE,
-    DELETE_BUTTON,
-)
 from task_manager.constants import BUTTON_TEXT, LOGIN, TITLE
+from task_manager.translations import CHANGE_TITLE, DELETE_BUTTON
+from task_manager.users.constants import USERS, USERS_LIST
+from task_manager.users.forms import CreateUserForm
 from task_manager.users.translations import (
     CHANGE_USER,
     CREATE_USER,
@@ -22,8 +21,6 @@ from task_manager.users.translations import (
     USER_IN_USE,
     USERS_TITLE,
 )
-from task_manager.users.constants import USERS, USERS_LIST
-from task_manager.users.forms import CreateUserForm
 
 
 class UsersListPage(ListView):

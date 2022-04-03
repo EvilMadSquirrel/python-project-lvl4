@@ -6,13 +6,10 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView
 from django_filters.views import FilterView
-from task_manager.translations import (
-    CHANGE_TITLE,
-    CREATE_TITLE,
-    DELETE_BUTTON,
-    NOT_AUTHORIZED,
-)
 from task_manager.constants import BUTTON_TEXT, LOGIN, TITLE
+from task_manager.tasks.constants import TASKS, TASKS_LIST
+from task_manager.tasks.forms import TaskForm, TasksFilter
+from task_manager.tasks.models import Task
 from task_manager.tasks.translations import (
     BY_ITS_AUTHOR,
     CHANGE_TASK,
@@ -24,9 +21,12 @@ from task_manager.tasks.translations import (
     TASK_DELETED_SUCCESSFULLY,
     TASKS_TITLE,
 )
-from task_manager.tasks.constants import TASKS, TASKS_LIST
-from task_manager.tasks.forms import TaskForm, TasksFilter
-from task_manager.tasks.models import Task
+from task_manager.translations import (
+    CHANGE_TITLE,
+    CREATE_TITLE,
+    DELETE_BUTTON,
+    NOT_AUTHORIZED,
+)
 
 
 class TasksListPage(LoginRequiredMixin, FilterView):

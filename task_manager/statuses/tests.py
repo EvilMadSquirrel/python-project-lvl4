@@ -3,12 +3,6 @@ from django.test import TestCase
 from django.urls import reverse
 from task_manager.constants import LOGIN_TEST, NAME, STATUSES_TEST
 from task_manager.labels.models import Label
-from task_manager.statuses.translations import (
-    STATUS_CHANGED_SUCCESSFULLY,
-    STATUS_CREATED_SUCCESSFULLY,
-    STATUS_DELETED_SUCCESSFULLY,
-    STATUS_IN_USE,
-)
 from task_manager.statuses.constants import (
     STATUSES,
     STATUSES_CHANGE,
@@ -17,6 +11,12 @@ from task_manager.statuses.constants import (
     STATUSES_LIST,
 )
 from task_manager.statuses.models import Status
+from task_manager.statuses.translations import (
+    STATUS_CHANGED_SUCCESSFULLY,
+    STATUS_CREATED_SUCCESSFULLY,
+    STATUS_DELETED_SUCCESSFULLY,
+    STATUS_IN_USE,
+)
 from task_manager.tasks.models import Task
 
 STATUS_OK = 200

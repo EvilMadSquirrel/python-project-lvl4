@@ -6,12 +6,6 @@ from task_manager.labels.constants import LABELS
 from task_manager.labels.models import Label
 from task_manager.statuses.constants import STATUS
 from task_manager.statuses.models import Status
-from task_manager.tasks.translations import (
-    BY_ITS_AUTHOR,
-    TASK_CHANGED_SUCCESSFULLY,
-    TASK_CREATED_SUCCESSFULLY,
-    TASK_DELETED_SUCCESSFULLY,
-)
 from task_manager.tasks.constants import (
     AUTHOR,
     EXECUTOR,
@@ -22,6 +16,12 @@ from task_manager.tasks.constants import (
     TASKS_LIST,
 )
 from task_manager.tasks.models import Task
+from task_manager.tasks.translations import (
+    BY_ITS_AUTHOR,
+    TASK_CHANGED_SUCCESSFULLY,
+    TASK_CREATED_SUCCESSFULLY,
+    TASK_DELETED_SUCCESSFULLY,
+)
 
 STATUS_OK = 200
 

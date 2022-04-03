@@ -2,11 +2,11 @@ from django.urls import path
 from task_manager.constants import (
     CHANGE,
     CREATE,
+    CREATE_URL,
     DELETE,
     DELETE_URL,
     LIST,
     UPDATE_URL,
-    CREATE_URL,
 )
 from task_manager.statuses.constants import STATUSES
 from task_manager.statuses.views import (

@@ -3,18 +3,18 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
-from task_manager.translations import (
-    LOGGED_IN,
-    LOGGED_OUT,
-    LOGIN_BUTTON,
-    LOGIN_TITLE,
-)
 from task_manager.constants import (
     BUTTON_TEXT,
     INDEX,
     LOGIN,
     TITLE,
     VALUE_STRING,
+)
+from task_manager.translations import (
+    LOGGED_IN,
+    LOGGED_OUT,
+    LOGIN_BUTTON,
+    LOGIN_TITLE,
 )
 
 
