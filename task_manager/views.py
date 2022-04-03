@@ -6,9 +6,7 @@ from django.views.generic import TemplateView
 from task_manager.constants import (
     BUTTON_TEXT,
     INDEX,
-    LOGIN,
     TITLE,
-    VALUE_STRING,
 )
 from task_manager.translations import (
     LOGGED_IN,
@@ -31,7 +29,6 @@ class LoginPage(SuccessMessageMixin, LoginView):
         context = super().get_context_data(**kwargs)
         context[TITLE] = LOGIN_TITLE
         context[BUTTON_TEXT] = LOGIN_BUTTON
-        context[VALUE_STRING] = LOGIN
         return context
 
 
