@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
-import types
 from pathlib import Path
 
 import dj_database_url
@@ -31,7 +30,7 @@ FIXTURE_DIRS = (os.path.join(BASE_DIR, "fixtures"),)
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = (
     "evilmadsquirrel-task-manager.herokuapp.com",
@@ -70,11 +69,11 @@ MIDDLEWARE = (
     "rollbar.contrib.django.middleware.RollbarNotifierMiddleware",
 )
 
-ROLLBAR = types.MappingProxyType({
+ROLLBAR = {
     'access_token': os.getenv("ACCESS_TOKEN"),
     'environment': 'development' if DEBUG else 'production',
     'root': BASE_DIR,
-})
+}
 
 rollbar.init(**ROLLBAR)
 
@@ -100,12 +99,12 @@ WSGI_APPLICATION = "task_manager.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-DATABASES = types.MappingProxyType({
+DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     },
-})
+}
 if not DEBUG:
     DATABASES["default"] = dj_database_url.config(conn_max_age=CONN_MAX_AGE)
 
