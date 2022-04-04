@@ -8,9 +8,16 @@ from django.utils.translation import gettext as _
 from task_manager.constants import DESCRIPTION, ID, NAME
 from task_manager.labels.constants import LABELS
 from task_manager.labels.models import Label
+from task_manager.labels.translations import LABELS_TITLE
 from task_manager.statuses.constants import STATUS
 from task_manager.tasks.constants import EXECUTOR
 from task_manager.tasks.models import Task
+from task_manager.tasks.translations import (
+    DESCRIPTION_LABEL,
+    EXECUTOR_LABEL,
+    STATUS_LABEL,
+)
+from task_manager.translations import NAME_TITLE
 
 
 class TaskForm(forms.ModelForm):
@@ -19,6 +26,13 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = [NAME, DESCRIPTION, STATUS, EXECUTOR, LABELS]
+        labels = {
+            NAME: NAME_TITLE,
+            DESCRIPTION: DESCRIPTION_LABEL,
+            STATUS: STATUS_LABEL,
+            EXECUTOR: EXECUTOR_LABEL,
+            LABELS: LABELS_TITLE,
+        }
 
 
 class TasksFilter(django_filters.FilterSet):
