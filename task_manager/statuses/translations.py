@@ -1,3 +1,4 @@
+"""Translated strings for statuses."""
 from django.utils.translation import gettext_lazy as _
 
 STATUSES_TITLE = _("Statuses")

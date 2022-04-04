@@ -1,3 +1,4 @@
+"""Constants for tasks app."""
 TASKS = "tasks"
 AUTHOR = "author"
 EXECUTOR = "executor"

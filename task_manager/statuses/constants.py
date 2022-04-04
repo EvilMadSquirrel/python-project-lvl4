@@ -1,3 +1,4 @@
+"""Constants for statuses app."""
 STATUSES_DELETE = "statuses:delete"
 STATUSES_CHANGE = "statuses:change"
 STATUSES_CREATE = "statuses:create"

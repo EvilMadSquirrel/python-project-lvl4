@@ -1,3 +1,4 @@
+"""Common constants."""
 LOGIN = "login"
 LOGOUT = "logout"
 LIST = "list"

@@ -1,3 +1,4 @@
+"""Constants for users app."""
 PASSWORD2 = "password2"
 PASSWORD1 = "password1"
 USERNAME = "username"

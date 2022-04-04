@@ -1,3 +1,4 @@
+"""Tests for tasks."""
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
@@ -27,9 +28,12 @@ STATUS_OK = 200
 
 
 class TestTasks(TestCase):
+    """Tests CRUD for tasks."""
+
     fixtures = ["tasks.json", "statuses.json", "users.json", "labels.json"]
 
     def setUp(self) -> None:
+        """Get data from fixtures."""
         self.label1 = Label.objects.get(pk=1)
         self.label2 = Label.objects.get(pk=2)
         self.label3 = Label.objects.get(pk=3)
@@ -54,6 +58,7 @@ class TestTasks(TestCase):
         }
 
     def test_tasks_list(self):
+        """Check for all tasks in tasks page."""
         self.client.force_login(self.user1)
         response = self.client.get(reverse(TASKS_LIST))
         self.assertEqual(response.status_code, STATUS_OK)
@@ -61,10 +66,12 @@ class TestTasks(TestCase):
         self.assertQuerysetEqual(tasks_list, [self.task1, self.task2])
 
     def test_tasks_list_no_login(self):
+        """Check redirect to login page."""
         response = self.client.get(reverse(TASKS_LIST))
         self.assertRedirects(response, LOGIN_TEST)
 
     def test_create_task(self):
+        """Check create new task."""
         self.client.force_login(self.user1)
         response = self.client.post(
             reverse(TASKS_CREATE),
@@ -77,6 +84,7 @@ class TestTasks(TestCase):
         self.assertEquals(created_task.name, "task3")
 
     def test_change_task(self):
+        """Check change existing task."""
         self.client.force_login(self.user1)
         url = reverse(TASKS_CHANGE, args=(self.task1.pk,))
         changed_task = {
@@ -93,6 +101,7 @@ class TestTasks(TestCase):
         self.assertEqual(Task.objects.get(pk=self.task1.pk), self.task1)
 
     def test_delete_task(self):
+        """Check delete task."""
         self.client.force_login(self.user1)
         url = reverse(TASKS_DELETE, args=(self.task1.pk,))
         response = self.client.post(url, follow=True)
@@ -103,6 +112,7 @@ class TestTasks(TestCase):
         self.assertContains(response, TASK_DELETED_SUCCESSFULLY)
 
     def test_delete_task_not_author(self):
+        """Check try to delete another's user task."""
         self.client.force_login(self.user1)
         url = reverse(TASKS_DELETE, args=(self.task2.pk,))
         response = self.client.post(url, follow=True)
@@ -111,6 +121,7 @@ class TestTasks(TestCase):
         self.assertContains(response, BY_ITS_AUTHOR)
 
     def test_filter_self_tasks(self):
+        """Check filter user's self tasks."""
         self.client.force_login(self.user1)
         filtered_list = "{0}?self_task=on".format(reverse(TASKS_LIST))
         response = self.client.get(filtered_list)
@@ -118,6 +129,7 @@ class TestTasks(TestCase):
         self.assertQuerysetEqual(list(response.context[TASKS]), [self.task1])
 
     def test_filter_by_status(self):
+        """Check filter tasks by status."""
         self.client.force_login(self.user1)
         filtered_list = "{0}?status=2".format(reverse(TASKS_LIST))
         response = self.client.get(filtered_list)
@@ -125,6 +137,7 @@ class TestTasks(TestCase):
         self.assertQuerysetEqual(list(response.context[TASKS]), [self.task2])
 
     def test_filter_by_executor(self):
+        """Check filter tasks by executor."""
         self.client.force_login(self.user1)
         filtered_list = "{0}?executor=2".format(reverse(TASKS_LIST))
         response = self.client.get(filtered_list)
@@ -132,6 +145,7 @@ class TestTasks(TestCase):
         self.assertQuerysetEqual(list(response.context[TASKS]), [self.task1])
 
     def test_filter_by_label(self):
+        """Check filter tasks by label."""
         self.client.force_login(self.user1)
         self.client.post(reverse(TASKS_CREATE), self.task, follow=True)
         created_task = Task.objects.get(name=self.task[NAME])

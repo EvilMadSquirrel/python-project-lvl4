@@ -1,3 +1,4 @@
+"""Constants for labels app."""
 LABELS = "labels"
 LABELS_LIST = "labels:list"
 LABELS_CREATE = "labels:create"

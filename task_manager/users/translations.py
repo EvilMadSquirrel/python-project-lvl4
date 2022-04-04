@@ -1,3 +1,4 @@
+"""Translated strings for users."""
 from django.utils.translation import gettext_lazy as _
 
 USER_CREATED_SUCCESSFULLY = _("User created successfully")

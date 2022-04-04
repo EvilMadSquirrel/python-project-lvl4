@@ -1,3 +1,4 @@
+"""Statuses urls."""
 from django.urls import path
 from task_manager.constants import (
     CHANGE,

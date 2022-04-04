@@ -1,3 +1,4 @@
+"""Forms for users."""
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from task_manager.users.constants import (
@@ -10,6 +11,8 @@ from task_manager.users.constants import (
 
 
 class CreateUserForm(UserCreationForm):
+    """Form to create or update user."""
+
     class Meta:
         model = User
         fields = [

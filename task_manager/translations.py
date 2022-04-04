@@ -1,3 +1,4 @@
+"""Common translated strings."""
 from django.utils.translation import gettext_lazy as _
 
 NOT_AUTHORIZED = _("You are not authorized")

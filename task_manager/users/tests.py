@@ -1,3 +1,4 @@
+"""Tests for users."""
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
@@ -28,9 +29,12 @@ STATUS_OK = 200
 
 
 class TestUsers(TestCase):
+    """Tests CRUD for users."""
+
     fixtures = ["users.json", "tasks.json", "statuses.json", "labels.json"]
 
     def setUp(self) -> None:
+        """Get data from fixtures."""
         self.user1 = User.objects.get(pk=1)
         self.user2 = User.objects.get(pk=2)
 
@@ -47,6 +51,7 @@ class TestUsers(TestCase):
         self.task2 = Task.objects.get(pk=2)
 
     def test_users_list(self):
+        """Check for all users in users page."""
         response = self.client.get(reverse(USERS_LIST))
         users_list = list(response.context[USERS])
         test_user1, test_user2 = users_list
@@ -56,6 +61,7 @@ class TestUsers(TestCase):
         self.assertEqual(test_user2.first_name, "Test2")
 
     def test_user_create(self):
+        """Check create new user."""
         url = reverse(USERS_CREATE)
         new_user = {
             USERNAME: "createdUser",
@@ -77,6 +83,7 @@ class TestUsers(TestCase):
         self.assertTrue(created_user.check_password("123"))
 
     def test_user_update(self):
+        """Check change existing user."""
         user = self.user1
         self.client.force_login(user)
         url = reverse(USERS_CHANGE, args=(user.id,))
@@ -95,6 +102,7 @@ class TestUsers(TestCase):
         self.assertTrue(changed_user.check_password("345"))
 
     def test_user_delete(self):
+        """Test delete user."""
         Task.objects.all().delete()
         self.client.force_login(self.user1)
         url = reverse(USERS_DELETE, args=(self.user1.id,))

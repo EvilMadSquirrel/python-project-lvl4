@@ -1,3 +1,4 @@
+"""Forms for tasks."""
 import django_filters
 from django import forms
 from django.contrib.auth.models import User
@@ -13,12 +14,16 @@ from task_manager.tasks.models import Task
 
 
 class TaskForm(forms.ModelForm):
+    """Form to create or update task."""
+
     class Meta:
         model = Task
         fields = [NAME, DESCRIPTION, STATUS, EXECUTOR, LABELS]
 
 
 class TasksFilter(django_filters.FilterSet):
+    """Filter set for tasks."""
+
     all_labels = Label.objects.values_list(ID, NAME, named=True).all()
     labels = django_filters.filters.ChoiceFilter(
         label=_("Label"),
@@ -41,6 +46,16 @@ class TasksFilter(django_filters.FilterSet):
     )
 
     def filter_self(self, queryset, name, value):
+        """If filter is selected returns queryset of current user tasks.
+
+        Args:
+            queryset: Queryset which was created by other filters before.
+            name(str): Filter's name.
+            value(bool): Filter's value.
+
+        Returns:
+            Queryset.
+        """
         if value:
             author = getattr(self.request, "user", None)
             queryset = queryset.filter(author=author)

@@ -1,3 +1,4 @@
+"""Translated strings for labels."""
 from django.utils.translation import gettext_lazy as _
 
 LABEL_IN_USE = _("Cannot delete label because it is in use")
