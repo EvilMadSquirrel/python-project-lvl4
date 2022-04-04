@@ -135,7 +135,7 @@ msgstr "Показать"
 
 #: task_manager/tasks/translations.py:15
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: task_manager/tasks/translations.py:16 templates/tasks_list.html:23
 msgid "Status"

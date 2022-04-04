@@ -18,6 +18,7 @@ from task_manager.tasks.translations import (
     STATUS_LABEL,
 )
 from task_manager.translations import NAME_TITLE
+from task_manager.users.constants import FIRST_NAME, LAST_NAME
 
 
 class TaskForm(forms.ModelForm):
@@ -45,11 +46,11 @@ class TasksFilter(django_filters.FilterSet):
     )
     all_executors = User.objects.values_list(
         ID,
-        Concat("first_name", Value(" "), "last_name"),
+        Concat(FIRST_NAME, Value(" "), LAST_NAME),
         named=True,
     ).all()
     executor = django_filters.filters.ChoiceFilter(
-        label=_("Executor"),
+        label=_(EXECUTOR_LABEL),
         choices=all_executors,
     )
     self_task = django_filters.filters.BooleanFilter(
