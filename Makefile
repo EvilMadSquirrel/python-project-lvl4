@@ -18,6 +18,7 @@ migrate:
 	@poetry run python manage.py migrate
 
 coverage:
+	@poetry run python manage.py makemigrations
 	@poetry run python manage.py migrate --fake
 	@poetry run coverage run manage.py test
 	@poetry run coverage xml
