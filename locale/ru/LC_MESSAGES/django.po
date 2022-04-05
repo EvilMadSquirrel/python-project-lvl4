@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-05 09:32+0300\n"
+"POT-Creation-Date: 2022-04-05 10:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,6 +53,10 @@ msgstr "Создать метку"
 msgid "Labels"
 msgstr "Метки"
 
+#: task_manager/labels/translations.py:12
+msgid "Label"
+msgstr "Метка"
+
 #: task_manager/statuses/translations.py:4 templates/base.html:30
 msgid "Statuses"
 msgstr "Статусы"
@@ -84,14 +88,6 @@ msgstr "Изменение статуса"
 #: task_manager/statuses/translations.py:11 templates/statuses_list.html:5
 msgid "Create status"
 msgstr "Создать статус"
-
-#: task_manager/tasks/forms.py:44
-msgid "Label"
-msgstr "Метка"
-
-#: task_manager/tasks/forms.py:57
-msgid "Only my tasks"
-msgstr "Только свои задачи"
 
 #: task_manager/tasks/translations.py:4 templates/base.html:33
 msgid "Tasks"
@@ -146,6 +142,10 @@ msgstr "Статус"
 #: templates/tasks_list.html:24
 msgid "Executor"
 msgstr "Исполнитель"
+
+#: task_manager/tasks/translations.py:17
+msgid "Only my tasks"
+msgstr "Только свои задачи"
 
 #: task_manager/translations.py:4
 msgid "You are not authorized"

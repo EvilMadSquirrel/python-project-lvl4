@@ -7,13 +7,15 @@ from django.utils.translation import gettext as _
 from task_manager.constants import DESCRIPTION, ID, NAME
 from task_manager.labels.constants import LABELS
 from task_manager.labels.models import Label
-from task_manager.labels.translations import LABELS_TITLE
+from task_manager.labels.translations import LABEL_TITLE, LABELS_TITLE
 from task_manager.statuses.constants import STATUS
+from task_manager.statuses.models import Status
 from task_manager.tasks.constants import EXECUTOR
 from task_manager.tasks.models import Task
 from task_manager.tasks.translations import (
     DESCRIPTION_LABEL,
     EXECUTOR_LABEL,
+    MY_TASKS,
     STATUS_LABEL,
 )
 from task_manager.translations import NAME_TITLE
@@ -39,9 +41,15 @@ class TaskForm(forms.ModelForm):
 class TasksFilter(django_filters.FilterSet):
     """Filter set for tasks."""
 
+    all_statuses = Status.objects.values_list(ID, NAME, named=True).all()
+    status = django_filters.filters.ChoiceFilter(
+        label=STATUS_LABEL,
+        choices=all_statuses,
+    )
+
     all_labels = Label.objects.values_list(ID, NAME, named=True).all()
     labels = django_filters.filters.ChoiceFilter(
-        label=_("Label"),
+        label=LABEL_TITLE,
         choices=all_labels,
     )
     all_executors = User.objects.values_list(
@@ -54,7 +62,7 @@ class TasksFilter(django_filters.FilterSet):
         choices=all_executors,
     )
     self_task = django_filters.filters.BooleanFilter(
-        label=_("Only my tasks"),
+        label=MY_TASKS,
         widget=forms.CheckboxInput(),
         method="filter_self",
         field_name="self_task",
