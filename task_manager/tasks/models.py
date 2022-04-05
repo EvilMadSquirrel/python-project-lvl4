@@ -27,7 +27,7 @@ class Task(models.Model):
         null=True,
         related_name="works",
     )
-    labels = models.ManyToManyField(Label, related_name=TASKS)
+    labels = models.ManyToManyField(Label, related_name=TASKS, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
