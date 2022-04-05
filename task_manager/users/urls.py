@@ -1,6 +1,13 @@
 """Users urls."""
 from django.urls import path
-from task_manager.constants import (
+from task_manager.users.views import (
+    ChangeUserPage,
+    CreateUserPage,
+    DeleteUserPage,
+    UsersListPage,
+)
+
+from .constants import (
     CHANGE,
     CREATE,
     CREATE_URL,
@@ -8,13 +15,7 @@ from task_manager.constants import (
     DELETE_URL,
     LIST,
     UPDATE_URL,
-)
-from task_manager.users.constants import USERS
-from task_manager.users.views import (
-    ChangeUserPage,
-    CreateUserPage,
-    DeleteUserPage,
-    UsersListPage,
+    USERS,
 )
 
 app_name = USERS

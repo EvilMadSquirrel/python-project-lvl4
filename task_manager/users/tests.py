@@ -1,13 +1,14 @@
 """Tests for users."""
 from django.test import TestCase
 from django.urls import reverse
-from task_manager.constants import LOGIN_TEST
-from task_manager.labels.models import Label
-from task_manager.statuses.models import Status
-from task_manager.tasks.models import Task
-from task_manager.users.constants import (
+
+from ..labels.models import Label
+from ..statuses.models import Status
+from ..tasks.models import Task
+from .constants import (
     FIRST_NAME,
     LAST_NAME,
+    LOGIN_TEST,
     PASSWORD1,
     PASSWORD2,
     USERNAME,
@@ -18,8 +19,8 @@ from task_manager.users.constants import (
     USERS_LIST,
     USERS_TEST,
 )
-from task_manager.users.models import User
-from task_manager.users.translations import (
+from .models import User
+from .translations import (
     USER_CHANGED_SUCCESSFULLY,
     USER_CREATED_SUCCESSFULLY,
     USER_DELETED_SUCCESSFULLY,

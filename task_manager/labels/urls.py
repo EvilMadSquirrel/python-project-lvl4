@@ -1,16 +1,17 @@
 """Labels urls."""
 from django.urls import path
-from task_manager.constants import (
+
+from .constants import (
     CHANGE,
     CREATE,
     CREATE_URL,
     DELETE,
     DELETE_URL,
+    LABELS,
     LIST,
     UPDATE_URL,
 )
-from task_manager.labels.constants import LABELS
-from task_manager.labels.views import (
+from .views import (
     ChangeLabelPage,
     CreateLabelPage,
     DeleteLabelPage,

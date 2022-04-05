@@ -4,13 +4,9 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
-from task_manager.constants import BUTTON_TEXT, INDEX, TITLE
-from task_manager.translations import (
-    LOGGED_IN,
-    LOGGED_OUT,
-    LOGIN_BUTTON,
-    LOGIN_TITLE,
-)
+
+from .constants import BUTTON_TEXT, INDEX, TITLE
+from .translations import LOGGED_IN, LOGGED_OUT, LOGIN_BUTTON, LOGIN_TITLE
 
 
 class IndexPage(TemplateView):

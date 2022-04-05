@@ -5,14 +5,15 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
-from task_manager.constants import BUTTON_TEXT, LOGIN, TITLE
-from task_manager.translations import CHANGE_TITLE, DELETE_BUTTON
-from task_manager.users.constants import USERS, USERS_LIST
-from task_manager.users.forms import CreateUserForm
-from task_manager.users.models import User
-from task_manager.users.translations import (
+
+from .constants import BUTTON_TEXT, LOGIN, TITLE, USERS, USERS_LIST
+from .forms import CreateUserForm
+from .models import User
+from .translations import (
+    CHANGE_TITLE,
     CHANGE_USER,
     CREATE_USER,
+    DELETE_BUTTON,
     DELETE_USER,
     NOT_CHANGE_ANOTHER_USER,
     REGISTER,

@@ -1,23 +1,26 @@
 """Tests for labels."""
 from django.test import TestCase
 from django.urls import reverse
-from task_manager.constants import LABELS_TEST, LOGIN_TEST, NAME
-from task_manager.labels.constants import (
+
+from ..statuses.models import Status
+from ..tasks.models import Task
+from .constants import (
     LABELS,
     LABELS_CHANGE,
     LABELS_CREATE,
     LABELS_DELETE,
     LABELS_LIST,
+    LABELS_TEST,
+    LOGIN_TEST,
+    NAME,
 )
-from task_manager.labels.models import Label
-from task_manager.labels.translations import (
+from .models import Label
+from .translations import (
     LABEL_CHANGED_SUCCESSFULLY,
     LABEL_CREATED_SUCCESSFULLY,
     LABEL_DELETED_SUCCESSFULLY,
     LABEL_IN_USE,
 )
-from task_manager.statuses.models import Status
-from task_manager.tasks.models import Task
 
 STATUS_OK = 200
 

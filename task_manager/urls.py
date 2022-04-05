@@ -1,19 +1,20 @@
 """General urls."""
 from django.contrib import admin
 from django.urls import include, path
-from task_manager.constants import (
+
+from .constants import (
     ADMIN_URL,
     INDEX,
+    LABELS_URL,
     LOGIN,
     LOGIN_URL,
     LOGOUT,
     LOGOUT_URL,
+    STATUSES_URL,
+    TASKS_URL,
+    USERS_URL,
 )
-from task_manager.labels.constants import LABELS_URL
-from task_manager.statuses.constants import STATUSES_URL
-from task_manager.tasks.constants import TASKS_URL
-from task_manager.users.constants import USERS_URL
-from task_manager.views import IndexPage, LoginPage, LogoutPage
+from .views import IndexPage, LoginPage, LogoutPage
 
 urlpatterns = [
     path("", IndexPage.as_view(), name=INDEX),

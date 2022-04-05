@@ -1,6 +1,7 @@
 """Tasks urls."""
 from django.urls import path
-from task_manager.constants import (
+
+from .constants import (
     CHANGE,
     CREATE,
     CREATE_URL,
@@ -9,10 +10,10 @@ from task_manager.constants import (
     DETAILS,
     DETAILS_URL,
     LIST,
+    TASKS,
     UPDATE_URL,
 )
-from task_manager.tasks.constants import TASKS
-from task_manager.tasks.views import (
+from .views import (
     ChangeTaskPage,
     CreateTaskPage,
     DeleteTaskPage,

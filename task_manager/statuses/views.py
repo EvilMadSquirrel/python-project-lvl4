@@ -5,25 +5,23 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
-from task_manager.constants import BUTTON_TEXT, LOGIN, TITLE
-from task_manager.statuses.constants import STATUSES, STATUSES_LIST
-from task_manager.statuses.forms import StatusForm
-from task_manager.statuses.models import Status
-from task_manager.statuses.translations import (
+
+from .constants import BUTTON_TEXT, LOGIN, STATUSES, STATUSES_LIST, TITLE
+from .forms import StatusForm
+from .models import Status
+from .translations import (
     CHANGE_STATUS,
+    CHANGE_TITLE,
     CREATE_STATUS,
+    CREATE_TITLE,
+    DELETE_BUTTON,
     DELETE_STATUS,
+    NOT_AUTHORIZED,
     STATUS_CHANGED_SUCCESSFULLY,
     STATUS_CREATED_SUCCESSFULLY,
     STATUS_DELETED_SUCCESSFULLY,
     STATUS_IN_USE,
     STATUSES_TITLE,
-)
-from task_manager.translations import (
-    CHANGE_TITLE,
-    CREATE_TITLE,
-    DELETE_BUTTON,
-    NOT_AUTHORIZED,
 )
 
 

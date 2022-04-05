@@ -1,6 +1,7 @@
 from django.db import models
-from task_manager.constants import NAME_MAX_LENGTH
-from task_manager.statuses.translations import STATUSES_TITLE
+
+from .constants import NAME_MAX_LENGTH
+from .translations import STATUSES_TITLE
 
 
 class Status(models.Model):

@@ -1,28 +1,32 @@
 """Tests for tasks."""
 from django.test import TestCase
 from django.urls import reverse
-from task_manager.constants import DESCRIPTION, LOGIN_TEST, NAME, TASKS_TEST
-from task_manager.labels.constants import LABELS
-from task_manager.labels.models import Label
-from task_manager.statuses.constants import STATUS
-from task_manager.statuses.models import Status
-from task_manager.tasks.constants import (
+
+from ..labels.models import Label
+from ..statuses.models import Status
+from ..users.models import User
+from .constants import (
     AUTHOR,
+    DESCRIPTION,
     EXECUTOR,
+    LABELS,
+    LOGIN_TEST,
+    NAME,
+    STATUS,
     TASKS,
     TASKS_CHANGE,
     TASKS_CREATE,
     TASKS_DELETE,
     TASKS_LIST,
+    TASKS_TEST,
 )
-from task_manager.tasks.models import Task
-from task_manager.tasks.translations import (
+from .models import Task
+from .translations import (
     BY_ITS_AUTHOR,
     TASK_CHANGED_SUCCESSFULLY,
     TASK_CREATED_SUCCESSFULLY,
     TASK_DELETED_SUCCESSFULLY,
 )
-from task_manager.users.models import User
 
 STATUS_OK = 200
 

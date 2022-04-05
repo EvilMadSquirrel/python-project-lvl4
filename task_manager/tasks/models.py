@@ -1,9 +1,9 @@
 from django.db import models
-from task_manager.constants import NAME_MAX_LENGTH
-from task_manager.labels.models import Label
-from task_manager.statuses.models import Status
-from task_manager.tasks.constants import TASKS
-from task_manager.users.models import User
+
+from ..labels.models import Label
+from ..statuses.models import Status
+from ..users.models import User
+from .constants import NAME_MAX_LENGTH, TASKS
 
 
 class Task(models.Model):

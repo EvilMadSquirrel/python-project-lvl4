@@ -1,16 +1,17 @@
 """Statuses urls."""
 from django.urls import path
-from task_manager.constants import (
+
+from .constants import (
     CHANGE,
     CREATE,
     CREATE_URL,
     DELETE,
     DELETE_URL,
     LIST,
+    STATUSES,
     UPDATE_URL,
 )
-from task_manager.statuses.constants import STATUSES
-from task_manager.statuses.views import (
+from .views import (
     ChangeStatusPage,
     CreateStatusPage,
     DeleteStatusPage,

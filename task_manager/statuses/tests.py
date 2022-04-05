@@ -1,24 +1,27 @@
 """Tests for statuses."""
 from django.test import TestCase
 from django.urls import reverse
-from task_manager.constants import LOGIN_TEST, NAME, STATUSES_TEST
-from task_manager.labels.models import Label
-from task_manager.statuses.constants import (
+
+from ..labels.models import Label
+from ..tasks.models import Task
+from ..users.models import User
+from .constants import (
+    LOGIN_TEST,
+    NAME,
     STATUSES,
     STATUSES_CHANGE,
     STATUSES_CREATE,
     STATUSES_DELETE,
     STATUSES_LIST,
+    STATUSES_TEST,
 )
-from task_manager.statuses.models import Status
-from task_manager.statuses.translations import (
+from .models import Status
+from .translations import (
     STATUS_CHANGED_SUCCESSFULLY,
     STATUS_CREATED_SUCCESSFULLY,
     STATUS_DELETED_SUCCESSFULLY,
     STATUS_IN_USE,
 )
-from task_manager.tasks.models import Task
-from task_manager.users.models import User
 
 STATUS_OK = 200
 

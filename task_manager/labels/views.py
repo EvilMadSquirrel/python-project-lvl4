@@ -5,24 +5,22 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
-from task_manager.constants import BUTTON_TEXT, LOGIN, TITLE
-from task_manager.labels.constants import LABELS, LABELS_LIST
-from task_manager.labels.forms import LabelForm
-from task_manager.labels.models import Label
-from task_manager.labels.translations import (
+
+from .constants import BUTTON_TEXT, LABELS, LABELS_LIST, LOGIN, TITLE
+from .forms import LabelForm
+from .models import Label
+from .translations import (
     CHANGE_LABEL,
+    CHANGE_TITLE,
     CREATE_LABEL,
+    CREATE_TITLE,
+    DELETE_BUTTON,
     DELETE_LABEL,
     LABEL_CHANGED_SUCCESSFULLY,
     LABEL_CREATED_SUCCESSFULLY,
     LABEL_DELETED_SUCCESSFULLY,
     LABEL_IN_USE,
     LABELS_TITLE,
-)
-from task_manager.translations import (
-    CHANGE_TITLE,
-    CREATE_TITLE,
-    DELETE_BUTTON,
     NOT_AUTHORIZED,
 )
 

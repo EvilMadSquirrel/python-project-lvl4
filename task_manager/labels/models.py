@@ -1,5 +1,6 @@
 from django.db import models
-from task_manager.constants import NAME_MAX_LENGTH
+
+from .constants import NAME_MAX_LENGTH
 
 
 class Label(models.Model):
