@@ -1,7 +1,6 @@
 """Forms for tasks."""
 import django_filters
 from django import forms
-from django.contrib.auth.models import User
 from django.db.models import Value
 from django.db.models.functions import Concat
 from django.utils.translation import gettext as _
@@ -19,6 +18,7 @@ from task_manager.tasks.translations import (
 )
 from task_manager.translations import NAME_TITLE
 from task_manager.users.constants import FIRST_NAME, LAST_NAME
+from task_manager.users.models import User
 
 
 class TaskForm(forms.ModelForm):

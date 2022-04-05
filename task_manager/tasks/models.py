@@ -1,9 +1,9 @@
-from django.contrib.auth.models import User
 from django.db import models
 from task_manager.constants import NAME_MAX_LENGTH
 from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 from task_manager.tasks.constants import TASKS
+from task_manager.users.models import User
 
 
 class Task(models.Model):

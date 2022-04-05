@@ -1,5 +1,4 @@
 """Tests for users."""
-from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 from task_manager.constants import LOGIN_TEST
@@ -19,6 +18,7 @@ from task_manager.users.constants import (
     USERS_LIST,
     USERS_TEST,
 )
+from task_manager.users.models import User
 from task_manager.users.translations import (
     USER_CHANGED_SUCCESSFULLY,
     USER_CREATED_SUCCESSFULLY,
@@ -58,7 +58,7 @@ class TestUsers(TestCase):
 
         self.assertEqual(response.status_code, STATUS_OK)
         self.assertEqual(test_user1.username, "testuser1")
-        self.assertEqual(test_user2.first_name, "Test2")
+        self.assertEqual(test_user2.first_name, "First2")
 
     def test_user_create(self):
         """Check create new user."""

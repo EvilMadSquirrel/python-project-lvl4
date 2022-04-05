@@ -1,5 +1,4 @@
 """Tests for statuses."""
-from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 from task_manager.constants import LOGIN_TEST, NAME, STATUSES_TEST
@@ -19,6 +18,7 @@ from task_manager.statuses.translations import (
     STATUS_IN_USE,
 )
 from task_manager.tasks.models import Task
+from task_manager.users.models import User
 
 STATUS_OK = 200
 

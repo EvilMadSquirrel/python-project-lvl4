@@ -1,7 +1,6 @@
 """Views for users with CRUD forms."""
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -10,6 +9,7 @@ from task_manager.constants import BUTTON_TEXT, LOGIN, TITLE
 from task_manager.translations import CHANGE_TITLE, DELETE_BUTTON
 from task_manager.users.constants import USERS, USERS_LIST
 from task_manager.users.forms import CreateUserForm
+from task_manager.users.models import User
 from task_manager.users.translations import (
     CHANGE_USER,
     CREATE_USER,

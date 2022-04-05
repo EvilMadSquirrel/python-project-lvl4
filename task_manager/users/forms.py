@@ -1,6 +1,5 @@
 """Forms for users."""
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from task_manager.users.constants import (
     FIRST_NAME,
     LAST_NAME,
@@ -8,6 +7,7 @@ from task_manager.users.constants import (
     PASSWORD2,
     USERNAME,
 )
+from task_manager.users.models import User
 
 
 class CreateUserForm(UserCreationForm):

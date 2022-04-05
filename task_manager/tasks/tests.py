@@ -1,5 +1,4 @@
 """Tests for tasks."""
-from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 from task_manager.constants import DESCRIPTION, LOGIN_TEST, NAME, TASKS_TEST
@@ -23,6 +22,7 @@ from task_manager.tasks.translations import (
     TASK_CREATED_SUCCESSFULLY,
     TASK_DELETED_SUCCESSFULLY,
 )
+from task_manager.users.models import User
 
 STATUS_OK = 200
 
