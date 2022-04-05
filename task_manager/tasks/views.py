@@ -4,10 +4,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, UpdateView
+from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from django_filters.views import FilterView
 from task_manager.constants import BUTTON_TEXT, LOGIN, TITLE
-from task_manager.tasks.constants import TASKS, TASKS_LIST
+from task_manager.labels.constants import LABELS
+from task_manager.tasks.constants import TASK, TASKS, TASKS_LIST
 from task_manager.tasks.forms import TaskForm, TasksFilter
 from task_manager.tasks.models import Task
 from task_manager.tasks.translations import (
@@ -19,6 +20,7 @@ from task_manager.tasks.translations import (
     TASK_CHANGED_SUCCESSFULLY,
     TASK_CREATED_SUCCESSFULLY,
     TASK_DELETED_SUCCESSFULLY,
+    TASK_VIEW,
     TASKS_TITLE,
 )
 from task_manager.translations import (
@@ -185,3 +187,25 @@ class DeleteTaskPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         """
         messages.error(self.request, NOT_AUTHORIZED)
         return redirect(LOGIN)
+
+
+class TaskDetailPage(LoginRequiredMixin, DetailView):
+    """Task details page."""
+
+    model = Task
+    template_name = "task_details.html"
+    context_object_name = TASK
+
+    def get_context_data(self, **kwargs):
+        """Add title and labels list to context.
+
+        Args:
+            **kwargs: kwargs.
+
+        Returns:
+            Context.
+        """
+        context = super(TaskDetailPage, self).get_context_data()
+        context[TITLE] = TASK_VIEW
+        context[LABELS] = self.get_object().labels.all()
+        return context

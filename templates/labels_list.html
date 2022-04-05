@@ -1,32 +1,30 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-  <div class="container wrapper flex-grow-1">
-    <h1 class="my-4">{{ title }}</h1>
-  <a class="nav-link" href="{% url 'labels:create' %}">{% translate "Create label" %}</a>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>{% translate 'Name' %}</th>
-        <th>{% translate 'Creation date' %}</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      {% for label in labels %}
+<h1 class="my-4">{{ title }}</h1>
+<a class="nav-link" href="{% url 'labels:create' %}">{% translate "Create label" %}</a>
+<table class="table table-striped">
+    <thead>
         <tr>
-          <td>{{ label.id }}</td>
-          <td>{{ label.name }}</td>
-          <td>{{ label.created_at|date:"d.m.Y H:i" }}</td>
-          <td>
-            <a href="{% url 'labels:change' label.id %}">{% translate "Change" %}</a>
-            <br>
-            <a href="{% url 'labels:delete' label.id %}">{% translate "Delete" %}</a>
-          </td>
+            <th>ID</th>
+            <th>{% translate 'Name' %}</th>
+            <th>{% translate 'Creation date' %}</th>
+            <th></th>
         </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-  </div>
+    </thead>
+    <tbody>
+        {% for label in labels %}
+        <tr>
+            <td>{{ label.id }}</td>
+            <td>{{ label.name }}</td>
+            <td>{{ label.created_at|date:"d.m.Y H:i" }}</td>
+            <td>
+                <a href="{% url 'labels:change' label.id %}">{% translate "Change" %}</a>
+                <br>
+                <a href="{% url 'labels:delete' label.id %}">{% translate "Delete" %}</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

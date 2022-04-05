@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-05 08:47+0300\n"
+"POT-Creation-Date: 2022-04-05 09:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,11 +44,12 @@ msgstr "Удаление метки"
 msgid "Change label"
 msgstr "Изменение метки"
 
-#: task_manager/labels/translations.py:10 templates/labels_list.html:6
+#: task_manager/labels/translations.py:10 templates/labels_list.html:5
 msgid "Create label"
 msgstr "Создать метку"
 
 #: task_manager/labels/translations.py:11 templates/base.html:36
+#: templates/task_details.html:31
 msgid "Labels"
 msgstr "Метки"
 
@@ -80,7 +81,7 @@ msgstr "Удаление статуса"
 msgid "Change status"
 msgstr "Изменение статуса"
 
-#: task_manager/statuses/translations.py:11 templates/statuses_list.html:6
+#: task_manager/statuses/translations.py:11 templates/statuses_list.html:5
 msgid "Create status"
 msgstr "Создать статус"
 
@@ -97,46 +98,52 @@ msgid "Tasks"
 msgstr "Задачи"
 
 #: task_manager/tasks/translations.py:5
+msgid "Task view"
+msgstr "Просмотр задачи"
+
+#: task_manager/tasks/translations.py:6
 msgid "Task created successfully"
 msgstr "Задача успешно создана"
 
-#: task_manager/tasks/translations.py:6
+#: task_manager/tasks/translations.py:7
 msgid "Task changed successfully"
 msgstr "Задача успешно изменена"
 
-#: task_manager/tasks/translations.py:7
+#: task_manager/tasks/translations.py:8
 msgid "Task deleted successfully"
 msgstr "Задача успешно удалена"
 
-#: task_manager/tasks/translations.py:8
+#: task_manager/tasks/translations.py:9
 msgid "A task can only be deleted by its author"
 msgstr "Задачу может удалить только её автор"
 
-#: task_manager/tasks/translations.py:9 templates/tasks_list.html:17
+#: task_manager/tasks/translations.py:10 templates/tasks_list.html:16
 msgid "Create task"
 msgstr "Создать задачу"
 
-#: task_manager/tasks/translations.py:10
+#: task_manager/tasks/translations.py:11
 msgid "Change task"
 msgstr "Изменение задачи"
 
-#: task_manager/tasks/translations.py:11
+#: task_manager/tasks/translations.py:12
 msgid "Delete task"
 msgstr "Удаление задачи"
 
-#: task_manager/tasks/translations.py:12
+#: task_manager/tasks/translations.py:13
 msgid "Show"
 msgstr "Показать"
 
-#: task_manager/tasks/translations.py:13
+#: task_manager/tasks/translations.py:14
 msgid "Description"
 msgstr "Описание"
 
-#: task_manager/tasks/translations.py:14 templates/tasks_list.html:23
+#: task_manager/tasks/translations.py:15 templates/task_details.html:22
+#: templates/tasks_list.html:22
 msgid "Status"
 msgstr "Статус"
 
-#: task_manager/tasks/translations.py:15 templates/tasks_list.html:25
+#: task_manager/tasks/translations.py:16 templates/task_details.html:18
+#: templates/tasks_list.html:24
 msgid "Executor"
 msgstr "Исполнитель"
 
@@ -148,9 +155,9 @@ msgstr "Вы не авторизованы! Пожалуйста, выполни
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
-#: task_manager/translations.py:6 templates/labels_list.html:23
-#: templates/statuses_list.html:23 templates/tasks_list.html:40
-#: templates/users_list.html:25
+#: task_manager/translations.py:6 templates/labels_list.html:22
+#: templates/statuses_list.html:22 templates/task_details.html:41
+#: templates/tasks_list.html:41 templates/users_list.html:24
 msgid "Change"
 msgstr "Изменить"
 
@@ -174,8 +181,8 @@ msgstr "Вы залогинены"
 msgid "You are logged out"
 msgstr "Вы разлогинены"
 
-#: task_manager/translations.py:12 templates/labels_list.html:11
-#: templates/statuses_list.html:11 templates/tasks_list.html:22
+#: task_manager/translations.py:12 templates/labels_list.html:10
+#: templates/statuses_list.html:10 templates/tasks_list.html:21
 msgid "Name"
 msgstr "Имя"
 
@@ -247,24 +254,26 @@ msgstr "Практические курсы по программировани�
 msgid "To learn more"
 msgstr "Узнать больше"
 
-#: templates/labels_list.html:12 templates/statuses_list.html:12
-#: templates/tasks_list.html:26 templates/users_list.html:13
+#: templates/labels_list.html:11 templates/statuses_list.html:11
+#: templates/task_details.html:26 templates/tasks_list.html:25
+#: templates/users_list.html:12
 msgid "Creation date"
 msgstr "Дата создания"
 
-#: templates/labels_list.html:25 templates/statuses_list.html:25
-#: templates/tasks_list.html:42 templates/users_list.html:27
+#: templates/labels_list.html:24 templates/statuses_list.html:24
+#: templates/task_details.html:43 templates/tasks_list.html:43
+#: templates/users_list.html:26
 msgid "Delete"
 msgstr "Удалить"
 
-#: templates/tasks_list.html:24
+#: templates/task_details.html:14 templates/tasks_list.html:23
 msgid "Author"
 msgstr "Автор"
 
-#: templates/users_list.html:11
+#: templates/users_list.html:10
 msgid "User name"
 msgstr "Имя пользователя"
 
-#: templates/users_list.html:12
+#: templates/users_list.html:11
 msgid "Full name"
 msgstr "Полное имя"

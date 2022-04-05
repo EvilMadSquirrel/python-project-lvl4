@@ -2,6 +2,7 @@
 from django.utils.translation import gettext_lazy as _
 
 TASKS_TITLE = _("Tasks")
+TASK_VIEW = _("Task view")
 TASK_CREATED_SUCCESSFULLY = _("Task created successfully")
 TASK_CHANGED_SUCCESSFULLY = _("Task changed successfully")
 TASK_DELETED_SUCCESSFULLY = _("Task deleted successfully")
