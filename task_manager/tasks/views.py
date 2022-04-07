@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from django_filters.views import FilterView
 
+from ..mixins import HandleNoPermissionMixin
 from ..users.models import User
 from .constants import (
     BUTTON_TEXT,
@@ -37,13 +38,19 @@ from .translations import (
 )
 
 
-class TasksListPage(LoginRequiredMixin, FilterView):
+class TasksListPage(
+    LoginRequiredMixin,
+    HandleNoPermissionMixin,
+    FilterView,
+):
     """Tasks list page."""
 
     model = Task
     template_name = "tasks_list.html"
     context_object_name = TASKS
     filterset_class = TasksFilter
+    no_permission_url = LOGIN
+    error_message = NOT_AUTHORIZED
 
     def get_context_data(self, **kwargs):
         """Add title and button text to context.
@@ -59,17 +66,13 @@ class TasksListPage(LoginRequiredMixin, FilterView):
         context[BUTTON_TEXT] = SHOW_TITLE
         return context
 
-    def handle_no_permission(self):
-        """Add error message and redirect to login page.
 
-        Returns:
-            Redirect to login page with message.
-        """
-        messages.error(self.request, NOT_AUTHORIZED)
-        return redirect(LOGIN)
-
-
-class CreateTaskPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CreateTaskPage(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    HandleNoPermissionMixin,
+    CreateView,
+):
     """Create task page."""
 
     model = Task
@@ -77,6 +80,8 @@ class CreateTaskPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "form.html"
     success_url = reverse_lazy(TASKS_LIST)
     success_message = TASK_CREATED_SUCCESSFULLY
+    no_permission_url = LOGIN
+    error_message = NOT_AUTHORIZED
 
     def form_valid(self, form):
         """Add current user as task author.
@@ -104,17 +109,13 @@ class CreateTaskPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context[BUTTON_TEXT] = CREATE_TITLE
         return context
 
-    def handle_no_permission(self):
-        """Add error message and redirect to login page.
 
-        Returns:
-            Redirect to login page with message.
-        """
-        messages.error(self.request, NOT_AUTHORIZED)
-        return redirect(LOGIN)
-
-
-class ChangeTaskPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class ChangeTaskPage(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    HandleNoPermissionMixin,
+    UpdateView,
+):
     """Change task page."""
 
     model = Task
@@ -122,6 +123,8 @@ class ChangeTaskPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = "form.html"
     success_url = reverse_lazy(TASKS_LIST)
     success_message = TASK_CHANGED_SUCCESSFULLY
+    no_permission_url = LOGIN
+    error_message = NOT_AUTHORIZED
 
     def get_context_data(self, **kwargs):
         """Add title and button text to context.
@@ -137,23 +140,21 @@ class ChangeTaskPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         context[BUTTON_TEXT] = CHANGE_TITLE
         return context
 
-    def handle_no_permission(self):
-        """Add ERROR message and redirect to login page.
 
-        Returns:
-            Redirect to login page with message.
-        """
-        messages.error(self.request, NOT_AUTHORIZED)
-        return redirect(LOGIN)
-
-
-class DeleteTaskPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class DeleteTaskPage(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    HandleNoPermissionMixin,
+    DeleteView,
+):
     """Delete task page."""
 
     model = Task
     template_name = "delete.html"
     success_url = reverse_lazy(TASKS_LIST)
     success_message = TASK_DELETED_SUCCESSFULLY
+    no_permission_url = LOGIN
+    error_message = NOT_AUTHORIZED
 
     def form_valid(self, form):
         """Check if user is author.
@@ -184,22 +185,19 @@ class DeleteTaskPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         context[BUTTON_TEXT] = DELETE_BUTTON
         return context
 
-    def handle_no_permission(self):
-        """Add error message and redirect to login page.
 
-        Returns:
-            Redirect to login page with message.
-        """
-        messages.error(self.request, NOT_AUTHORIZED)
-        return redirect(LOGIN)
-
-
-class TaskDetailPage(LoginRequiredMixin, DetailView):
+class TaskDetailPage(
+    LoginRequiredMixin,
+    HandleNoPermissionMixin,
+    DetailView,
+):
     """Task details page."""
 
     model = Task
     template_name = "task_details.html"
     context_object_name = TASK
+    no_permission_url = LOGIN
+    error_message = NOT_AUTHORIZED
 
     def get_context_data(self, **kwargs):
         """Add title and labels list to context.

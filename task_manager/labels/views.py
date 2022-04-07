@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
+from ..mixins import HandleNoPermissionMixin
 from .constants import BUTTON_TEXT, LABELS, LABELS_LIST, LOGIN, TITLE
 from .forms import LabelForm
 from .models import Label
@@ -25,12 +26,18 @@ from .translations import (
 )
 
 
-class LabelsListPage(LoginRequiredMixin, ListView):
+class LabelsListPage(
+    LoginRequiredMixin,
+    HandleNoPermissionMixin,
+    ListView,
+):
     """Labels list page."""
 
     model = Label
     template_name = "labels_list.html"
     context_object_name = LABELS
+    no_permission_url = LOGIN
+    error_message = NOT_AUTHORIZED
 
     def get_context_data(self, **kwargs):
         """Add title text to context.
@@ -45,17 +52,13 @@ class LabelsListPage(LoginRequiredMixin, ListView):
         context[TITLE] = LABELS_TITLE
         return context
 
-    def handle_no_permission(self):
-        """Add error message and redirect to login page.
 
-        Returns:
-            Redirect to login page with message.
-        """
-        messages.error(self.request, NOT_AUTHORIZED)
-        return redirect(LOGIN)
-
-
-class CreateLabelPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CreateLabelPage(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    HandleNoPermissionMixin,
+    CreateView,
+):
     """Create label page."""
 
     model = Label
@@ -63,6 +66,8 @@ class CreateLabelPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "form.html"
     success_url = reverse_lazy(LABELS_LIST)
     success_message = LABEL_CREATED_SUCCESSFULLY
+    no_permission_url = LOGIN
+    error_message = NOT_AUTHORIZED
 
     def get_context_data(self, **kwargs):
         """Add title and button text to context.
@@ -78,17 +83,13 @@ class CreateLabelPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context[BUTTON_TEXT] = CREATE_TITLE
         return context
 
-    def handle_no_permission(self):
-        """Add error message and redirect to login page.
 
-        Returns:
-            Redirect to login page with message.
-        """
-        messages.error(self.request, NOT_AUTHORIZED)
-        return redirect(LOGIN)
-
-
-class ChangeLabelPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class ChangeLabelPage(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    HandleNoPermissionMixin,
+    UpdateView,
+):
     """Change label page."""
 
     model = Label
@@ -96,6 +97,8 @@ class ChangeLabelPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = "form.html"
     success_url = reverse_lazy(LABELS_LIST)
     success_message = LABEL_CHANGED_SUCCESSFULLY
+    no_permission_url = LOGIN
+    error_message = NOT_AUTHORIZED
 
     def get_context_data(self, **kwargs):
         """Add title and button text to context.
@@ -111,23 +114,21 @@ class ChangeLabelPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         context[BUTTON_TEXT] = CHANGE_TITLE
         return context
 
-    def handle_no_permission(self):
-        """Add ERROR message and redirect to login page.
 
-        Returns:
-            Redirect to login page with message.
-        """
-        messages.error(self.request, NOT_AUTHORIZED)
-        return redirect(LOGIN)
-
-
-class DeleteLabelPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class DeleteLabelPage(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    HandleNoPermissionMixin,
+    DeleteView,
+):
     """Delete label page."""
 
     model = Label
     template_name = "delete.html"
     success_url = reverse_lazy(LABELS_LIST)
     success_message = LABEL_DELETED_SUCCESSFULLY
+    no_permission_url = LOGIN
+    error_message = NOT_AUTHORIZED
 
     def form_valid(self, form):
         """Check if label has tasks.
@@ -157,12 +158,3 @@ class DeleteLabelPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         context[TITLE] = DELETE_LABEL
         context[BUTTON_TEXT] = DELETE_BUTTON
         return context
-
-    def handle_no_permission(self):
-        """Add error message and redirect to login page.
-
-        Returns:
-            Redirect to login page with message.
-        """
-        messages.error(self.request, NOT_AUTHORIZED)
-        return redirect(LOGIN)

@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
+from ..mixins import HandleNoPermissionMixin
 from .constants import BUTTON_TEXT, LOGIN, STATUSES, STATUSES_LIST, TITLE
 from .forms import StatusForm
 from .models import Status
@@ -25,12 +26,18 @@ from .translations import (
 )
 
 
-class StatusesListPage(LoginRequiredMixin, ListView):
+class StatusesListPage(
+    LoginRequiredMixin,
+    HandleNoPermissionMixin,
+    ListView,
+):
     """Statuses list page."""
 
     model = Status
     template_name = "statuses_list.html"
     context_object_name = STATUSES
+    no_permission_url = LOGIN
+    error_message = NOT_AUTHORIZED
 
     def get_context_data(self, **kwargs):
         """Add title text to context.
@@ -45,17 +52,13 @@ class StatusesListPage(LoginRequiredMixin, ListView):
         context[TITLE] = STATUSES_TITLE
         return context
 
-    def handle_no_permission(self):
-        """Add error message and redirect to login page.
 
-        Returns:
-            Redirect to login page with message.
-        """
-        messages.error(self.request, NOT_AUTHORIZED)
-        return redirect(LOGIN)
-
-
-class CreateStatusPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CreateStatusPage(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    HandleNoPermissionMixin,
+    CreateView,
+):
     """Create status page."""
 
     model = Status
@@ -63,6 +66,8 @@ class CreateStatusPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "form.html"
     success_url = reverse_lazy(STATUSES_LIST)
     success_message = STATUS_CREATED_SUCCESSFULLY
+    no_permission_url = LOGIN
+    error_message = NOT_AUTHORIZED
 
     def get_context_data(self, **kwargs):
         """Add title and button text to context.
@@ -78,17 +83,13 @@ class CreateStatusPage(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context[BUTTON_TEXT] = CREATE_TITLE
         return context
 
-    def handle_no_permission(self):
-        """Add error message and redirect to login page.
 
-        Returns:
-            Redirect to login page with message.
-        """
-        messages.error(self.request, NOT_AUTHORIZED)
-        return redirect(LOGIN)
-
-
-class ChangeStatusPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class ChangeStatusPage(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    HandleNoPermissionMixin,
+    UpdateView,
+):
     """Change status page."""
 
     model = Status
@@ -96,6 +97,8 @@ class ChangeStatusPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = "form.html"
     success_url = reverse_lazy(STATUSES_LIST)
     success_message = STATUS_CHANGED_SUCCESSFULLY
+    no_permission_url = LOGIN
+    error_message = NOT_AUTHORIZED
 
     def get_context_data(self, **kwargs):
         """Add title and button text to context.
@@ -111,23 +114,21 @@ class ChangeStatusPage(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         context[BUTTON_TEXT] = CHANGE_TITLE
         return context
 
-    def handle_no_permission(self):
-        """Add error message and redirect to login page.
 
-        Returns:
-            Redirect to login page with message.
-        """
-        messages.error(self.request, NOT_AUTHORIZED)
-        return redirect(LOGIN)
-
-
-class DeleteStatusPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class DeleteStatusPage(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    HandleNoPermissionMixin,
+    DeleteView,
+):
     """Delete status page."""
 
     model = Status
     template_name = "delete.html"
     success_url = reverse_lazy(STATUSES_LIST)
     success_message = STATUS_DELETED_SUCCESSFULLY
+    no_permission_url = LOGIN
+    error_message = NOT_AUTHORIZED
 
     def form_valid(self, form):
         """Check if status has tasks.
@@ -157,12 +158,3 @@ class DeleteStatusPage(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         context[TITLE] = DELETE_STATUS
         context[BUTTON_TEXT] = DELETE_BUTTON
         return context
-
-    def handle_no_permission(self):
-        """Add error message and redirect to login page.
-
-        Returns:
-            Redirect to login page with message.
-        """
-        messages.error(self.request, NOT_AUTHORIZED)
-        return redirect(LOGIN)

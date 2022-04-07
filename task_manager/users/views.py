@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
+from ..mixins import HandleNoPermissionMixin
 from .constants import BUTTON_TEXT, LOGIN, TITLE, USERS, USERS_LIST
 from .forms import CreateUserForm
 from .models import User
@@ -72,6 +73,7 @@ class CreateUserPage(SuccessMessageMixin, CreateView):
 class ChangeUserPage(
     LoginRequiredMixin,
     SuccessMessageMixin,
+    HandleNoPermissionMixin,
     UserPassesTestMixin,
     UpdateView,
 ):
@@ -82,6 +84,8 @@ class ChangeUserPage(
     form_class = CreateUserForm
     success_url = reverse_lazy(USERS_LIST)
     success_message = USER_CHANGED_SUCCESSFULLY
+    no_permission_url = USERS_LIST
+    error_message = NOT_CHANGE_ANOTHER_USER
 
     def test_func(self):
         """Checks user try to change yourself.
@@ -105,19 +109,11 @@ class ChangeUserPage(
         context[BUTTON_TEXT] = CHANGE_TITLE
         return context
 
-    def handle_no_permission(self):
-        """Add error message and redirect to users page.
-
-        Returns:
-            Redirect to users page with message.
-        """
-        messages.error(self.request, NOT_CHANGE_ANOTHER_USER)
-        return redirect(USERS_LIST)
-
 
 class DeleteUserPage(
     LoginRequiredMixin,
     SuccessMessageMixin,
+    HandleNoPermissionMixin,
     UserPassesTestMixin,
     DeleteView,
 ):
@@ -127,6 +123,8 @@ class DeleteUserPage(
     template_name = "delete.html"
     success_url = reverse_lazy(USERS_LIST)
     success_message = USER_DELETED_SUCCESSFULLY
+    no_permission_url = USERS_LIST
+    error_message = NOT_CHANGE_ANOTHER_USER
 
     def test_func(self):
         """Checks user try to delete yourself.
@@ -163,13 +161,4 @@ class DeleteUserPage(
             messages.error(self.request, USER_IN_USE)
         else:
             super(DeleteUserPage, self).form_valid(form)
-        return redirect(USERS_LIST)
-
-    def handle_no_permission(self):
-        """Add error message and redirect to users page.
-
-        Returns:
-            Redirect to users page with message.
-        """
-        messages.error(self.request, NOT_CHANGE_ANOTHER_USER)
         return redirect(USERS_LIST)
