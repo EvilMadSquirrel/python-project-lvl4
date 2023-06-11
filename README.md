@@ -14,7 +14,7 @@ The project is divided into separate applications for possible reuse. Each appli
 ## Local installation:
 
 ```bash
-pip install --user git+https://github.com/EvilMadSquirrel/python-project-lvl4
+pip install --user git+https://github.com/RottingHorse/python-project-lvl4
 ```
 
 ###### Basic usage:
